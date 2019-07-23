@@ -3,6 +3,9 @@ layout: post
 title:  "Nova M33 2015-12b"
 date:   2016-01-13 14:45:26 +0100
 categories: nova observations
+author: sal
+categories: [ Jekyll, tutorial ]
+image: assets/images/nova-2015-12b-2016-01-02T18:29:40.png
 ---
 
 

@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "Perseid meteor activity 3 days before max."
+date:   2016-08-09 22:21:21 +0100
+categories: meteors
+---
+
+
+Activity seems very low. Some small meteors captured at the end of the video. Video ends at 1:15am IST on Aug 9th. Capture was made using an ZWO ASI120MM camera with a fish eye lens. This camera, which is normally used as the guide camera for the main telescope was temporarily attached to the observatory wall.  FireCapture was used with 30sec exposures and 70% gain. Final processing in iMovie.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LBior-k-En0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

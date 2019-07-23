@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "Nova M31 2016-01a"
+date:   2016-01-14 14:45:26 +0100
+categories: nova observations
+---
+
+
+Image taken 2016-01-16T21:13
+
+![](/assets/images/novaM31-2016-01a.jpg)
+

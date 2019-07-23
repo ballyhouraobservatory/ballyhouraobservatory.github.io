@@ -2,7 +2,9 @@
 layout: post
 title:  "Nova M31 2016-01a"
 date:   2016-01-14 14:45:26 +0100
-categories: nova observations
+author: dok
+categories: [ Nova, observations ]
+image: assets/images/novaM31-2016-01a.jpg
 ---
 
 

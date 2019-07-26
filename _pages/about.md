@@ -5,6 +5,8 @@ permalink: /about
 comments: true
 ---
 
+![night](/assets/images/observatory-at-night.jpeg)
+
 Ballyhoura Observatory is an astronomical observatory located in north county Cork, Ireland. It was originally constructed in 1990. Recently, in 2016, it was upgraded for fully remote and robotic operation. 
 
 Currently focusing on collection of data to aid in exoplanet and variable star research.

@@ -5,7 +5,7 @@ date:   2019-07-26 20:41:50 +0100
 author: dok
 categories: [ telescope exoplanet ]
 image: assets/images/lightpollution_viirs2019.png
-featured: true
+featured: false
 hidden: true
 rating: 4.5
 ---

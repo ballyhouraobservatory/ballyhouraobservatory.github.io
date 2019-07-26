@@ -14,3 +14,4 @@ Currently focusing on collection of data to aid in exoplanet and variable star r
 Data from the observatory has been used the following publications
 
 * [The First Post-Kepler Brightness Dips of KIC 8462852](https://arxiv.org/abs/1801.00732)
+

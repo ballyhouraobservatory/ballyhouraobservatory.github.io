@@ -5,8 +5,7 @@ date:   2016-12-03 22:21:21 +0100
 author: dok
 categories: [ telescope ]
 image: assets/images/collimation.png
-featured: true
-hidden: true
+featured: false
 rating: 4.5
 ---
 

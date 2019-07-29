@@ -3,7 +3,7 @@ layout: post
 title:  "CEM120 installation and first light"
 date:   2019-07-29 16:41:50 +0100
 author: dok
-categories: [ telescope mount ]
+categories: [ telescope, mount ]
 image: assets/images/M27-120min-10x3min-LRGB.png
 hidefeaturedimageinpost: true
 featured: true

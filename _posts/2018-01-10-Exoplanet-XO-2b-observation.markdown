@@ -3,7 +3,7 @@ layout: post
 title:  "Exoplanet XO-2b observation"
 date:   2018-01-10 22:21:21 +0100
 author: dok
-categories: [ telescope exoplanet ]
+categories: [ telescope, exoplanet ]
 image: assets/images/xo-2b.png
 hidefeaturedimageinpost: true
 featured: true

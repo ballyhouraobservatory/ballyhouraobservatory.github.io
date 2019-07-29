@@ -5,6 +5,7 @@ date:   2018-01-10 22:21:21 +0100
 author: dok
 categories: [ telescope exoplanet ]
 image: assets/images/xo-2b.png
+hidefeaturedimageinpost: true
 featured: true
 hidden: true
 rating: 4.5

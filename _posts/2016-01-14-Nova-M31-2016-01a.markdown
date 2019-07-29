@@ -5,6 +5,7 @@ date:   2016-01-14 14:45:26 +0100
 author: dok
 categories: [ Nova, observations ]
 image: assets/images/novaM31-2016-01a.jpg
+hidefeaturedimageinpost: true
 ---
 
 

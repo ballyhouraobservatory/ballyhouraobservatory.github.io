@@ -10,4 +10,8 @@ hidden: true
 rating: 4.5
 ---
 
-Some content here 
+who: astronomers and LP activists
+what try to say:
+action readers to take. what they need to know not what Ive found out
+
+important msg at start then use subheadings

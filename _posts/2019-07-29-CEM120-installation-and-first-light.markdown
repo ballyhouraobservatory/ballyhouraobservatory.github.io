@@ -23,7 +23,7 @@ Once we drilled and tapped 4 new holes into the existing tri-pier, installation 
 
 The first clear night was spent on polar alignment as well as ironing out parking/unparking positions and testing for remote use. Polar alignment was done using [Ekos](https://indilib.org/about/ekos/alignment-module.html) which got the mount aligned to with 20 arc seconds of the celestial pole. The CEM120's alt-az adjustments are very smooth. The mount feels very well made. Any manual knobs/adjusters are well machined, tight-fitting and smooth.
 
-First light came a few nights later. A bright easy object. M27. 10x3min exposures taken with each LRGB filter (Luminance, red, green and blue) to give a combined time of 120minutes. Guiding using the internal guider in EKOS was showing RMS values under 1 arc second all the time except for a couple of odd blips. 
+First light came a few nights later. A bright easy object. M27. 10x3min exposures taken with each LRGB filter (Luminance, red, green and blue) to give a combined time of 120minutes. Guiding using the internal guider in EKOS was showing RMS values under 1 arc second all the time except for a couple of odd blips. The image below was assembled and lightly processed using [Nebulosity](http://www.stark-labs.com/nebulosity.html). It could be improved further as the alignment of the RGB with the L is not perfect but its a good enough result to test the mount out.
 
 ![M27 120min 10x3min LRGB](/assets/images/M27-120min-10x3min-LRGB.png)
 

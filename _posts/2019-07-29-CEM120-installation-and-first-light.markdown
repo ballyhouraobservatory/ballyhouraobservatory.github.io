@@ -26,3 +26,5 @@ The first clear night was spent on polar alignment as well as ironing out parkin
 First light came a few nights later. A bright easy object. M27. 10x3min exposures taken with each LRGB filter (Luminance, red, green and blue) to give a combined time of 120minutes. Guiding using the internal guider in EKOS was showing RMS values under 1 arc second all the time except for a couple of odd blips. 
 
 ![M27 120min 10x3min LRGB](/assets/images/M27-120min-10x3min-LRGB.png)
+
+It will be really interesting to see how this mount works out with time-series photometric observations of variables and exoplanets over the next few months. Fingers crossed the rain stays away.

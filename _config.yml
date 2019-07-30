@@ -5,7 +5,7 @@ description: "A robotic observatory based in the Ballyhoura region of Ireland"
 logo: 'assets/images/logo2.png'
 favicon: 'assets/images/logo.png'
 baseurl: ''
-google_analytics: ''
+google_analytics: 'UA-144844508-1'
 disqus: 'ballyhouraobservatory'
 mailchimp-list:
 include: ["_pages"]

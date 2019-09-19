@@ -7,8 +7,6 @@ comments: false
 
 ## Live status
 
-#### Weather monitor
-
 Internal camera updated every 5min
 
 ![Internal cam](http://52-8.xyz/images/telemetry/snapshot.jpg)

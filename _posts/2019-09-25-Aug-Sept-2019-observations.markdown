@@ -17,7 +17,7 @@ Weather has been relativity good for August and September with 16 clear nights. 
 
 ### SS Cyg
 
-All observations were centred around a variable star called SS Cyg. We monitored the star every clear night to complement NASA's TESS space telescope observation run ([AAVSO alert 673](https://www.aavso.org/aavso-alert-notice-673)). 
+All observations were centred around a cataclysmic variable star called SS Cyg. We monitored the star every clear night to complement NASA's TESS space telescope observation run ([AAVSO alert 673](https://www.aavso.org/aavso-alert-notice-673)). 
 
 The light curve below from AAVSO shows SS Cyg's activity for August and September. A total of 95 observers contributed to this light curve. Our data is marked with orange crosses.
 ![ss cyg](/assets/images/aug-sep-2019/SS-Cyg-aug-sep.png)

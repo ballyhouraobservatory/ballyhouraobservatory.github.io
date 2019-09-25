@@ -11,6 +11,8 @@ Ballyhoura Observatory is an astronomical observatory located in north county Co
 
 Currently focusing on collection of data to aid in exoplanet and variable star research.
 
+Variable-star data submitted to AAVSO under username [ODEA](https://aavso.org/apps/webobs/results/?obscode=ODEA&num_results=25&obs_types=all)
+
 Data from the observatory has been used the following publications
 
 * [The First Post-Kepler Brightness Dips of KIC 8462852](https://arxiv.org/abs/1801.00732)

@@ -6,8 +6,8 @@ author: dok
 categories: [ telescope, exoplanet ]
 image: assets/images/xo-2b.png
 hidefeaturedimageinpost: false
-featured: true
-hidden: true
+featured: false
+hidden: false
 rating: 4.5
 ---
 

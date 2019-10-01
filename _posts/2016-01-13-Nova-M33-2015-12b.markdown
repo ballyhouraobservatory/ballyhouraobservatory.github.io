@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "Nova M33 2015-12b"
+images:
+  - url: /images/nova-2015-12b-2016-01-02T18:29:40.png
+---
+
+
+2 Images of extragalactic nova 2015-12b in M33, 10 days apart.
+
+Image taken on 2016-01-02T18:29:40.
+
+![](/images/nova-2015-12b-2016-01-02T18:29:40.png)
+
+Image taken on 2016-01-12T21:32:50.
+
+![](/images/nova-2015-12b-2016-01-12T21:32:50.png)
+
+More information on this nova can be found here http://www.rochesterastronomy.org/novae.html

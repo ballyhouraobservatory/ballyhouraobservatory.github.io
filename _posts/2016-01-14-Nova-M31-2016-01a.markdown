@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "Nova M31 2016-01a"
+images:
+  - url: /images/novaM31-2016-01a.jpg
+---
+
+
+Image taken 2016-01-16T21:13
+
+![](/images/novaM31-2016-01a.jpg)
+

@@ -5,7 +5,7 @@ permalink: /telemetry
 comments: false
 ---
 
-## Live status
+## Live status (systems currently offline due to red weather alert)
 
 Internal camera updated every 5min
 

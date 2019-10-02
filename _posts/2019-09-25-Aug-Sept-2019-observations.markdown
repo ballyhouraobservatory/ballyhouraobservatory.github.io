@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "August & September 2019 observations"
-excerpt: Focusing on cataclysmic variable SS Cyg
+excerpt: Crowdsourcing data on cataclysmic variable SS Cyg
 published: true
 images:
   - url: /images/aug-sep-2019/SS-Cyg-aug-sep.png

@@ -9,7 +9,7 @@ images:
 ![]({{ site.baseurl }}/images/aug-sep-2019/stats.png)
 
 
-Weather has been relativity good for August and September with 16 clear nights. This allowed us to submit over 400 variable star observations to the AAVSO.
+Weather was relativity good for August and September with 16 clear nights. This allowed us to submit over 400 variable star observations to the AAVSO.
 
 ### SS Cyg
 

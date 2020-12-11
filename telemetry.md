@@ -3,6 +3,7 @@ layout: page
 title: Telemetry
 permalink: /telemetry
 comments: false
+autoreload: true
 ---
 
 ## Live status

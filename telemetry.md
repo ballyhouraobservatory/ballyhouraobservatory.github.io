@@ -9,11 +9,11 @@ comments: false
 
 Internal camera updated every 5min
 
-![Internal cam](http://52-8.xyz/images/telemetry/snapshot.jpg)
+![Internal cam]()
 
 System computer updated every 5min
 
-![Internal cam](http://52-8.xyz/images/telemetry/screenshot.png)
+![Internal cam](https://i.ibb.co/VvgsMnH/snapshot.jpg)
 
 All sky camera updated every 5min
 

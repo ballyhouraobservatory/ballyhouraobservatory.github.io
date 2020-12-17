@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/png" href="/assets/favicon-32x32.png" sizes="32x32" />
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
+    {% include meta.html %}
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
+    <script src="//dweet.io/client/dweet.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% include analytics.html %}
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
+            <p class="site-description">{{ site.description }}</p>
+          </div>
+
+          <nav>
+            <a href="{{ site.baseurl }}/">Blog</a>
+            <a href="{{ site.baseurl }}/about">About</a>
+            <a href="{{ site.baseurl }}/data">Data</a>
+            <a href="{{ site.baseurl }}/telemetry">Telemetry</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="page">
+
+        <h1>{{ page.title }}</h1>
+            
+        <div class="row">
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Weather: <span id="observingConditionsOk"></span></h3>
+              </div>
+              <div class="panel-body">
+                <ul class="list-unstyled">
+                  <li><strong>Rain</strong> <span id="rain"></span></li>
+                  <li><strong>Sky Quality</strong> <span id="sqm"></span> mpsas</li>
+                  <li><strong>Sky temp</strong> <span id="skytemp"></span>°C</li>
+                  <li><strong>Ambient temp</strong> <span id="ambienttemp"></span>°C</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Observatory: Roof <span id="roof"></span></h3>
+              </div>
+              <div class="panel-body">
+                <ul class="list-unstyled">
+                  <li><strong>Main computer: </strong> <span id="maincomputer"></span></li>
+                  <li><strong>Mount Power: </strong> <span id="mountpower"></span></li>
+                  <li><strong>CCD Power</strong> <span id="ccdpower"></span></li>
+                  <li><strong>Focuser Power</strong> <span id="focuserpower"></span></li>
+                  <li><strong>Heaters</strong> <span id="heaterspower"></span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Telescope: </h3>
+              </div>
+              <div class="panel-body">
+                <ul class="list-unstyled">
+                  <!-- <li><strong>State</strong> Tracking</span></li>
+                  <li><strong>ALT - AZ</strong> xxx -- xxx</span></li>
+                  <li><strong>Guiding</strong> RMS=0.34</span></li>
+                  <li><strong>Focus</strong> HFR</span></li> -->
+                </ul>
+              </div>
+            </div>  
+          </div>
+        </div>
+        <div class="entry">
+          {{ content }}
+        </div>
+      </article>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          {% include svg-icons.html %}
+        </footer>
+      </div>
+    </div>
+    {% include analytics.html %}
+    <script>
+      $( document ).ready(function() {
+        console.log( 'ready!' );
+        dweetio.get_latest_dweet_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(err, dweet){
+          var dweet = dweet[0]; // Dweet is always an array of 1
+          console.log(dweet.thing); // The generated name
+          console.log(dweet.content); // The content of the dweet
+          console.log(dweet.created); // The create date of the dweet
+          $( "#skytemp" ).html( dweet.content.sky )
+          $( "#ambienttemp" ).html( dweet.content.ambientTemp )
+          $( "#rain" ).html( dweet.content.rain )
+          $( "#roof" ).html( dweet.content.roof )
+          $( "#focuserSystem" ).html( dweet.content.focuserSystem )
+          $( "#observingConditionsOk" ).html( dweet.content.observingConditionsOk=='True' ? "Good" : "Bad" )
+          $( "#mountpower" ).html( dweet.content.mount )
+          $( "#ccdpower" ).html( dweet.content.ccd )
+          $( "#focuserpower" ).html( dweet.content.focuser )
+          $( "#heaterspower" ).html( dweet.content.heaters )
+          $( "#maincomputer" ).html( dweet.content.mainControlSystem )
+          $( "#sqm" ).html( dweet.content.sqm )
+
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: telemetry
 title: Telemetry
 permalink: /telemetry
 comments: false

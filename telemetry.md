@@ -27,3 +27,7 @@ Previous 48 hours cloud and rain
 Previous 48 hours temperature sensors. Ambient and sky temp
 
 ![Cloud and rain](https://52-8.xyz/images/telemetry/temperature.png)
+
+Forecast
+
+![Forecast](http://www.yr.no/place/Ireland/Munster/Mitchelstown/avansert_meteogram.png)

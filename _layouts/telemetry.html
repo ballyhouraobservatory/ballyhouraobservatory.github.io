@@ -87,6 +87,20 @@
             </div>  
           </div>
         </div>
+        <div class="row">
+          <div class="col">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">INI & EKOS System Logs: </h3>
+              </div>
+              <div class="panel-body" id="logspanel" style="max-height: 400px;overflow: scroll;">
+                <ul class="list-group" id="bobslogs">
+                </ul>
+              </div>
+            </div>  
+
+          </div>
+        </div>
         <div class="entry">
           {{ content }}
         </div>
@@ -102,26 +116,47 @@
     </div>
     {% include analytics.html %}
     <script>
-      $( document ).ready(function() {
-        console.log( 'ready!' );
-        dweetio.get_latest_dweet_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(err, dweet){
-          var dweet = dweet[0]; // Dweet is always an array of 1
-          console.log(dweet.thing); // The generated name
-          console.log(dweet.content); // The content of the dweet
-          console.log(dweet.created); // The create date of the dweet
-          $( "#skytemp" ).html( dweet.content.sky )
-          $( "#ambienttemp" ).html( dweet.content.ambientTemp )
-          $( "#rain" ).html( dweet.content.rain )
-          $( "#roof" ).html( dweet.content.roof )
-          $( "#focuserSystem" ).html( dweet.content.focuserSystem )
-          $( "#observingConditionsOk" ).html( dweet.content.observingConditionsOk=='True' ? "Good" : "Bad" )
-          $( "#mountpower" ).html( dweet.content.mount )
-          $( "#ccdpower" ).html( dweet.content.ccd )
-          $( "#focuserpower" ).html( dweet.content.focuser )
-          $( "#heaterspower" ).html( dweet.content.heaters )
-          $( "#maincomputer" ).html( dweet.content.mainControlSystem )
-          $( "#sqm" ).html( dweet.content.sqm )
+      function update_telemetry(dweet) {
+        $( "#skytemp" ).html( dweet.content.sky )
+        $( "#ambienttemp" ).html( dweet.content.ambientTemp )
+        $( "#rain" ).html( dweet.content.rain )
+        $( "#roof" ).html( dweet.content.roof )
+        $( "#focuserSystem" ).html( dweet.content.focuserSystem )
+        $( "#observingConditionsOk" ).html( dweet.content.observingConditionsOk=='True' ? "Good" : "Bad" )
+        $( "#mountpower" ).html( dweet.content.mount )
+        $( "#ccdpower" ).html( dweet.content.ccd )
+        $( "#focuserpower" ).html( dweet.content.focuser )
+        $( "#heaterspower" ).html( dweet.content.heaters )
+        $( "#maincomputer" ).html( dweet.content.mainControlSystem )
+        $( "#sqm" ).html( dweet.content.sqm )
+      }
 
+      function append_logline(dweet) {
+        logline_class = 'list-group-item list-group-item-info'
+          if (dweet.content.logline.includes('WARNING')) {
+            logline_class = 'list-group-item list-group-item-warning'
+          }
+          if (dweet.content.logline.includes('ERROR')) {
+            logline_class = 'list-group-item list-group-item-danger'
+          }
+          $( "#bobslogs" ).append( `<li class="${logline_class}"> ${dweet.created.toLocaleString()}    ${dweet.content.logline}</li>` )
+          $("#logspanel").animate({ scrollTop: $('#logspanel').prop("scrollHeight") }, 1000);
+      }
+      $( document ).ready(function() {
+        dweetio.get_latest_dweet_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(err, dweet){
+          var dweet = dweet[0]; 
+          update_telemetry(dweet);
+        });
+        dweetio.listen_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(dweet){
+          update_telemetry(dweet);
+        });
+        dweetio.get_all_dweets_for("BobsLogs", function(err, dweets){
+          dweets.map(dweet => {
+            append_logline(dweet)
+          })
+        });
+        dweetio.listen_for("BobsLogs", function(dweet){
+          append_logline(dweet)
         });
       });
     </script>

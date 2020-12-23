@@ -98,9 +98,28 @@
                 </ul>
               </div>
             </div>  
-
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <a href="#" class="thumbnail">
+              <img id="obscam" src="https://52-8.xyz/images/telemetry/snapshot.jpg" alt="obs cam">
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a href="#" class="thumbnail">
+              <img id="screenshot" src="https://52-8.xyz/images/telemetry/screenshot.png" alt="screenshot">
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <a href="#" class="thumbnail">
+              <img id="yr" src="http://www.yr.no/place/Ireland/Munster/Mitchelstown/avansert_meteogram.png ">
+            </a>
+          </div>
+        </div>
+        
         <div class="entry">
           {{ content }}
         </div>
@@ -142,6 +161,13 @@
           $( "#bobslogs" ).append( `<li class="${logline_class}"> ${dweet.created.toLocaleString()}    ${dweet.content.logline}</li>` )
           $("#logspanel").animate({ scrollTop: $('#logspanel').prop("scrollHeight") }, 1000);
       }
+
+      function update_images() {
+        $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
+        $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
+        setTimeout("doPoll()", 60000);
+      }
+
       $( document ).ready(function() {
         dweetio.get_latest_dweet_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(err, dweet){
           var dweet = dweet[0]; 
@@ -151,13 +177,19 @@
           update_telemetry(dweet);
         });
         dweetio.get_all_dweets_for("BobsLogs", function(err, dweets){
-          dweets.map(dweet => {
-            append_logline(dweet)
-          })
+          if (dweets != '404') {
+            dweets.map(dweet => {
+              append_logline(dweet);
+            })
+          } else {
+            $( "#bobslogs" ).append('<li class="list-group-item list-group-item-info">Offline</li>');
+          }
         });
         dweetio.listen_for("BobsLogs", function(dweet){
-          append_logline(dweet)
+          append_logline(dweet);
         });
+
+        update_images()
       });
     </script>
   </body>

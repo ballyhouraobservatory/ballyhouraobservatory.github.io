@@ -3,7 +3,7 @@ layout: telemetry
 title: Telemetry
 permalink: /telemetry
 comments: false
-autoreload: true
+autoreload: false
 ---
 
 Previous 48 hours cloud and rain

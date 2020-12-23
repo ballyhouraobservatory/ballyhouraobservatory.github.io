@@ -165,7 +165,7 @@
       function update_images() {
         $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
-        setTimeout("doPoll()", 60000);
+        setTimeout("update_images()", 60000);
       }
 
       $( document ).ready(function() {

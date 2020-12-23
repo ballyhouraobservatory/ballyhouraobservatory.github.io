@@ -6,20 +6,6 @@ comments: false
 autoreload: true
 ---
 
-## Live status
-
-Internal camera updated every 5min
-
-![Internal cam](https://52-8.xyz/images/telemetry/snapshot.jpg)
-
-System computer updated every 5min
-
-![Internal cam](https://52-8.xyz/images/telemetry/screenshot.png)
-
-All sky camera updated every 5min
-
-![Internal cam](https://52-8.xyz/images/telemetry/allsky.jpg)
-
 Previous 48 hours cloud and rain
 
 ![Cloud and rain](https://52-8.xyz/images/telemetry/cloud.png)
@@ -31,3 +17,7 @@ Previous 48 hours temperature sensors. Ambient and sky temp
 Forecast
 
 ![Forecast](http://www.yr.no/place/Ireland/Munster/Mitchelstown/avansert_meteogram.png)
+
+All sky camera updated every 5min
+
+![all sky cam](https://52-8.xyz/images/telemetry/allsky.jpg)

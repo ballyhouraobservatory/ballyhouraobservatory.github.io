@@ -6,6 +6,14 @@ comments: true
 ---
 ## Photos and Astro photos
 
+### NGC3189 and friends
+
+Taken April 2021. 30x300sec through Baader luminance filter. Celestron C11 + 0.63x reducer
+
+![](/images/photos/NGC3189_30x300sec_LUM.png)
+
+---
+
 ### M81
 
 Taken Dec 2020 / Jan 2021

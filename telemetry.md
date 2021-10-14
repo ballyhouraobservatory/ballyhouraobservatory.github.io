@@ -18,6 +18,10 @@ Forecast
 
 ![Forecast](http://www.yr.no/place/Ireland/Munster/Mitchelstown/avansert_meteogram.png)
 
+Sunset And Twilight times
+
+![night](https://clearoutside.com/annual_darkness_image/52.2/-8.40/annual_darkness.png)
+
 All sky camera updated every 5min
 
 ![all sky cam](https://52-8.xyz/images/telemetry/allsky.jpg)

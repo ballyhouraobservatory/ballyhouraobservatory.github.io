@@ -6,6 +6,14 @@ comments: true
 ---
 ## Photos and Astro photos
 
+### The Perseus double cluster area
+
+Taken Nov 2021. First light of a new 135mm F2 lens
+
+![](/images/photos/DoubleCluster-10x1min-135mm-F2.png)
+
+---
+
 ### NGC3189 and friends
 
 Taken April 2021. 30x300sec through Baader luminance filter. Celestron C11 + 0.63x reducer

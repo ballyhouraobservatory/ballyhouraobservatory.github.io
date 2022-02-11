@@ -16,7 +16,7 @@ Previous 48 hours temperature sensors. Ambient and sky temp
 
 Forecast
 
-![Forecast](http://www.yr.no/place/Ireland/Munster/Mitchelstown/avansert_meteogram.png)
+![Forecast](https://www.yr.no/en/content/2-2962587/meteogram.svg)
 
 Sunset And Twilight times
 

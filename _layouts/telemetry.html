@@ -90,19 +90,6 @@
         </div>
         <div class="row">
           <div class="col">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">INI & EKOS System Logs: </h3>
-              </div>
-              <div class="panel-body" id="logspanel" style="max-height: 400px;overflow: scroll;">
-                <ul class="list-group" id="bobslogs">
-                </ul>
-              </div>
-            </div>  
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
             <a href="#" class="thumbnail">
               <img id="obscam" src="https://52-8.xyz/images/telemetry/snapshot.jpg" alt="obs cam">
             </a>
@@ -153,18 +140,6 @@
         $( "#sqm" ).html( dweet.content.sqm )
       }
 
-      function append_logline(dweet) {
-        logline_class = 'list-group-item list-group-item-info'
-          if (dweet.content.logline.includes('WARNING')) {
-            logline_class = 'list-group-item list-group-item-warning'
-          }
-          if (dweet.content.logline.includes('ERROR')) {
-            logline_class = 'list-group-item list-group-item-danger'
-          }
-          $( "#bobslogs" ).append( `<li class="${logline_class}"> ${dweet.created.toLocaleString()}    ${dweet.content.logline}</li>` )
-          $("#logspanel").animate({ scrollTop: $('#logspanel').prop("scrollHeight") }, 1000);
-      }
-
       function update_images() {
         $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
@@ -179,19 +154,6 @@
         dweetio.listen_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(dweet){
           update_telemetry(dweet);
         });
-        dweetio.get_all_dweets_for("BobsLogs", function(err, dweets){
-          if (dweets != '404') {
-            dweets.map(dweet => {
-              append_logline(dweet);
-            })
-          } else {
-            $( "#bobslogs" ).append('<li class="list-group-item list-group-item-info">Offline</li>');
-          }
-        });
-        dweetio.listen_for("BobsLogs", function(dweet){
-          append_logline(dweet);
-        });
-
         update_images()
       });
     </script>

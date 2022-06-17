@@ -16,3 +16,4 @@ Variable-star data submitted to AAVSO under username [ODEA](https://aavso.org/ap
 Data from the observatory has been used the following publications
 
 * [The First Post-Kepler Brightness Dips of KIC 8462852](https://arxiv.org/abs/1801.00732)
+* [V392 Persei: a γ-ray bright nova eruption from a known dwarf nova](https://arxiv.org/abs/2206.03443)

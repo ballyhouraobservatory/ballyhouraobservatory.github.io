@@ -6,7 +6,6 @@
     {% include meta.html %}
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
-    <script src="//dweet.io/client/dweet.io.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {% include analytics.html %}
 
@@ -49,7 +48,7 @@
               <div class="panel-body">
                 <ul class="list-unstyled">
                   <li><strong>Rain</strong> <span id="rain"></span></li>
-                  <li><strong>Sky Quality</strong> <span id="sqm"></span></li>
+                  <li><strong>Darkness (SQM)</strong> <span id="sqm"></span></li>
                   <li><strong>Sky temp</strong> <span id="skytemp"></span>°C</li>
                   <li><strong>Ambient temp</strong> <span id="ambienttemp"></span>°C</li>
                 </ul>
@@ -125,36 +124,23 @@
     </div>
     {% include analytics.html %}
     <script>
-      function update_telemetry(dweet) {
-        $( "#skytemp" ).html( dweet.content.sky )
-        $( "#ambienttemp" ).html( dweet.content.ambientTemp )
-        $( "#rain" ).html( dweet.content.rain )
-        $( "#roof" ).html( dweet.content.roof )
-        $( "#focuserSystem" ).html( dweet.content.focuserSystem )
-        $( "#observingConditionsOk" ).html( dweet.content.observingConditionsOk=='True' ? "Good" : "Bad" )
-        $( "#mountpower" ).html( dweet.content.mount )
-        $( "#ccdpower" ).html( dweet.content.ccd )
-        $( "#focuserpower" ).html( dweet.content.focuser )
-        $( "#heaterspower" ).html( dweet.content.heaters )
-        $( "#maincomputer" ).html( dweet.content.mainControlSystem )
-        $( "#sqm" ).html( dweet.content.sqm )
+      function update_telemetry() {
+        $.getJSON('https://52-8.xyz/images/current.json', function(weather) {
+                  $( "#skytemp" ).html( weather.skyTemp  )
+                  $( "#ambienttemp" ).html( weather.outsideTemp  )
+                  $( "#rain" ).html( weather.rain )
+               });
       }
 
-      function update_images() {
+      function poll_for_updates() {
         $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
-        setTimeout("update_images()", 60000);
+        update_telemetry();
+        setTimeout("poll_for_updates()", 60000);
       }
 
       $( document ).ready(function() {
-        dweetio.get_latest_dweet_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(err, dweet){
-          var dweet = dweet[0]; 
-          update_telemetry(dweet);
-        });
-        dweetio.listen_for("ballyhouraobservatory","7hwEDtyupWqjFWaULbPxAS", function(dweet){
-          update_telemetry(dweet);
-        });
-        update_images()
+        poll_for_updates()
       });
     </script>
   </body>

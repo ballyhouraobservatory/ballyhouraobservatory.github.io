@@ -125,7 +125,7 @@
     {% include analytics.html %}
     <script>
       function update_telemetry() {
-        $.getJSON('https://52-8.xyz/images/current.json?'+new Date().getTime()), function(weather) {
+        $.getJSON('https://52-8.xyz/images/current.json?'+new Date().getTime(), function(weather) {
                   $( "#skytemp" ).html( weather.skyTemp  )
                   $( "#ambienttemp" ).html( weather.outsideTemp  )
                   $( "#rain" ).html( weather.rain )

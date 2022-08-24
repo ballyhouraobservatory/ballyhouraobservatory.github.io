@@ -125,10 +125,18 @@
     {% include analytics.html %}
     <script>
       function update_telemetry() {
-        $.getJSON('https://52-8.xyz/images/current.json?'+new Date().getTime(), function(weather) {
-                  $( "#skytemp" ).html( weather.skyTemp  )
-                  $( "#ambienttemp" ).html( weather.outsideTemp  )
-                  $( "#rain" ).html( weather.rain )
+        $.getJSON('https://52-8.xyz/images/telemetry/telemetry.json?'+new Date().getTime(), function(telemetry) {
+                  $( "#skytemp" ).html( telemetry.sky  )
+                  $( "#ambienttemp" ).html( telemetry.ambientTemp  )
+                  $( "#rain" ).html( telemetry.rain )
+                  $( "#sqm" ).html( telemetry.sqm )
+                  $( "#observingConditionsOk" ).html( telemetry.observingConditionsOk )
+                  $( "#maincomputer" ).html( telemetry.mainControlSystem )
+                  $( "#mountpower" ).html( telemetry.mount )
+                  $( "#ccdpower" ).html( telemetry.ccd )
+                  $( "#focuserpower" ).html( telemetry.focuserSystem )
+                  $( "#heaterspower" ).html( telemetry.heaters )
+                  $( "#roof" ).html( telemetry.roof )
                });
       }
 

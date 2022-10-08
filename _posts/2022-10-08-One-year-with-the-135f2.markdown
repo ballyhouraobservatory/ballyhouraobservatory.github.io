@@ -129,13 +129,14 @@ Late September 2022 brought this region high into the sky. There is so many red 
 
 ![]({{ site.baseurl }}/images/135mm/cas-ceph-map.png)
 
-The image is 60x3min exposures at F2.8 again using the l-enhance filter. **<a href="/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg" target="_blank">Click here for a full size version</a>**
+The image is 60x3min exposures at F2.8 again using the l-enhance filter.
 
-![]({{ site.baseurl }}/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg)
+<a href="/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg" target="_blank"><img src="/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg"/></a>
+
 
 The annotated version below shows many obscure nebulae from the <a href="https://en.wikipedia.org/wiki/Sharpless_catalog" target="_blank">sharpless catalog</a> labeled with Sh2-xxx as well as many even more obscure dark nebulae from the LDN - Lynds Catalog of Dark Nebulae.
 
-![]({{ site.baseurl }}/images/135mm/SH157-annotated.png)
+<a href="/images/135mm/SH157-annotated.png" target="_blank"><img src="/images/135mm/SH157-annotated.png"/></a>
 
 # Conclusion
 

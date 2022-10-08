@@ -101,7 +101,7 @@ Another image of M45. **<a href="/images/135mm/FULL-M45_57minF2.jpg" target="_bl
 
 # Improved red sensitivity and modifying the DSLR
 
-In the winter I removed the camera's built in IR filter and replaced it with a Baader BCF 1 DSLR Astro Conversion Filter. This made a big difference in the sensitivity of red light from ionized hydrogen (Hα). 
+In the winter of 2021/22 I removed the camera's built in IR filter and replaced it with a Baader BCF 1 DSLR Astro Conversion Filter. This made a big difference in the sensitivity of red light from ionized hydrogen (Hα). 
 
 <img src="/images/135mm/modifyit.jpg"/>
 

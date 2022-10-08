@@ -116,7 +116,7 @@ Another image of the Orion belt region below taken after modification in Feb 202
 
 The late summer / early autumn skies are full of red ionized Hα regions. I added a clip in Optolong l-enhance filter to try to highlight these regions in images. The l-enhance has a fairly narrow band-pass for Hα at 656nm. This can cause problems for fast optical systems where the light passes through the filter's coatings at an oblique angle, effectively passing through a 'thicker' layer of the interference coating. When this happens, transmission of light is reduced. To reduce this effect, I stopped the lens down from F2 to F2.8. 
 
-The image below of the double-cluster and the heart & soul nebula is 52x3min (total over 2.5 hours) exposure. Stopping the lens down also improved the sharpness of the bottom left corner.
+The image below of the double-cluster and the heart & soul nebula is 52x3min (total over 2.5 hours) exposure. **<a href="/images/135mm/HNS-52x3min-135mmF2.jpg" target="_blank">Click here for a full size version</a>** Stopping the lens down also improved the sharpness of the bottom left corner.
 
 <div class="img-zoom-container">
   <img id="hns" src="/images/135mm/HNS-52x3min-135mmF2.jpg" width="1030" height="687">

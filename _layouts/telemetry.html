@@ -104,14 +104,14 @@
         <div class="row">
           <div class="col">
             <a href="#" class="thumbnail">
-              <img id="screenshot" src="https://52-8.xyz/images/telemetry/cam2-snapshot.jpg" alt="screenshot">
+              <img id="cam2" src="https://52-8.xyz/images/telemetry/cam2-snapshot.jpg" alt="screenshot">
             </a>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <a href="#" class="thumbnail">
-              <img id="screenshot" src="https://52-8.xyz/images/telemetry/snapshot.jpg" alt="screenshot">
+              <img id="oldcam" src="https://52-8.xyz/images/telemetry/snapshot.jpg" alt="screenshot">
             </a>
           </div>
         </div>
@@ -155,8 +155,10 @@
       }
 
       function poll_for_updates() {
-        $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
+        $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/cam3-snapshot.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
+        $("#cam2").attr("src", "https://52-8.xyz/images/telemetry/cam2-snapshot.jpg?"+new Date().getTime());
+        $("#oldcam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
         update_telemetry();
         setTimeout("poll_for_updates()", 60000);
       }

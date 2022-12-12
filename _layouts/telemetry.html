@@ -142,7 +142,7 @@
         $.getJSON('https://52-8.xyz/images/telemetry/telemetry.json?'+new Date().getTime(), function(telemetry) {
                   $( "#skytemp" ).html( telemetry.sky  )
                   $( "#ambienttemp" ).html( telemetry.ambientTemp  )
-                  $( "#rain" ).html( telemetry.rain )
+                  $( "#rain" ).html( telemetry.rain ? 'Raining' : 'Not Raining')
                   $( "#sqm" ).html( telemetry.sqm )
                   $( "#observingConditionsOk" ).html( telemetry.observingConditionsOk )
                   $( "#maincomputer" ).html( telemetry.mainControlSystem )

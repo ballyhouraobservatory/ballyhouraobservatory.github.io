@@ -10,9 +10,9 @@ comments: true
 
 ### Andromeda Galaxy M31
 
-October 2021. Samyang 135mm F2 lens. 52x1min Canon kiss x7i camera (EOS700D). 
+October 2021. Samyang 135mm F2 lens. 52x1min. Unmodified Canon kiss x7i camera (EOS700D). 
 
-![](/images/135mm/FULL-M31-52min-135mm-F2.jpg)
+[<a href="/images/135mm/FULL-M31-52min-135mm-F2.jpg" target="_blank">here</a>](/images/135mm/FULL-M31-52min-135mm-F2.jpg)
 
 ---
 

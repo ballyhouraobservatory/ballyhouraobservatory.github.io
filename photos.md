@@ -8,9 +8,17 @@ comments: true
 
 ---
 
+### The dark shark (LDN1235) and LDN1251 in Cepheus
+
+December 2022. 4.5hrs exposure using a Samyang 135mmF2 lens & modified Canon DSLR.  These are cold dusty clouds which block light from background stars. Click image for full resolution in new tab.
+
+<a href="/images/135mm/LDN1235.jpg" target="_blank">![](/images/135mm/LDN1235.jpg)</a>
+
+---
+
 ### The Cassiopeia Cepheus region
 
-September 2022. Samyang 135mm F2 lens. 60x3min (3 hours). Modified Canon kiss x7i camera (EOS700D) + Optolong l-enhance filter. 
+September 2022. Samyang 135mm F2 lens at F2.8. 60x3min (3 hours). Modified Canon kiss x7i camera (EOS700D) + Optolong l-enhance filter. 
 Click image for full resolution in new tab.
 
 <a href="/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg" target="_blank">![](/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg)</a>
@@ -19,7 +27,7 @@ Click image for full resolution in new tab.
 
 ### Heart & Soul Nebula with the double cluster
 
-September 2022. Samyang 135mm F2 lens. 52x3min (2.5 hours). Modified Canon kiss x7i camera (EOS700D) + Optolong l-enhance filter. 
+September 2022. Samyang 135mm F2 lens at F2.8. 52x3min (2.5 hours). Modified Canon kiss x7i camera (EOS700D) + Optolong l-enhance filter. 
 Click image for full resolution in new tab.
 
 <a href="/images/135mm/HNS-52x3min-135mmF2.jpg" target="_blank">![](/images/135mm/HNS-52x3min-135mmF2.jpg)</a>

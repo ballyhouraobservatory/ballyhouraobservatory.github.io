@@ -8,6 +8,15 @@ comments: true
 
 ---
 
+### M45 The Pleiades, The seven sisters, スバル
+
+December 2021. Samyang 135mm F2 lens. 57x1min. Unmodified Canon kiss x7i camera (EOS700D). 
+Click image for full resolution in new tab.
+
+<a href="/images/135mm/FULL-M45_57minF2.jpg" target="_blank">![](/images/135mm/FULL-M45_57minF2.jpg)</a>
+
+----
+
 ### Andromeda Galaxy M31
 
 October 2021. Samyang 135mm F2 lens. 52x1min. Unmodified Canon kiss x7i camera (EOS700D). 

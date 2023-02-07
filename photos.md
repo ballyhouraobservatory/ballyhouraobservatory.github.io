@@ -8,6 +8,14 @@ comments: true
 
 ---
 
+### Andromeda Galaxy M31
+
+October 2021. Samyang 135mm F2 lens. 52x1min Canon kiss x7i camera (EOS700D). 
+
+![](/images/135mm/FULL-M31-52min-135mm-F2.jpg)
+
+---
+
 ### NGC3189 and friends
 
 Taken April 2021. 30x300sec through Baader luminance filter. Celestron C11 + 0.63x reducer

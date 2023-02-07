@@ -17,6 +17,15 @@ Click image for full resolution in new tab.
 
 ---
 
+### Witch head nebula
+
+March 2022. Samyang 135mm F2 lens. 92x1min. Modified Canon kiss x7i camera (EOS700D).
+Click image for full resolution in new tab.
+
+<a href="/images/135mm/WItchHead-92x1min.jpg" target="_blank">![](/images/135mm/WItchHead-92x1min.jpg)</a>
+
+---
+
 ### Orion region
 
 February 2022. Samyang 135mm F2 lens. 100x1min. Modified Canon kiss x7i camera (EOS700D). 

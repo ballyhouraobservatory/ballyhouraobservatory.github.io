@@ -8,6 +8,15 @@ comments: true
 
 ---
 
+### The Cassiopeia Cepheus region
+
+September 2022. Samyang 135mm F2 lens. 60x3min (3 hours). Modified Canon kiss x7i camera (EOS700D) + Optolong l-enhance filter. 
+Click image for full resolution in new tab.
+
+<a href="/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg" target="_blank">![](/images/135mm/SH157-60x3min-135mmF2.8-l-enhance-process2.jpg)</a>
+
+---
+
 ### Heart & Soul Nebula with the double cluster
 
 September 2022. Samyang 135mm F2 lens. 52x3min (2.5 hours). Modified Canon kiss x7i camera (EOS700D) + Optolong l-enhance filter. 

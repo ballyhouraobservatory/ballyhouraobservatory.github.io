@@ -8,6 +8,14 @@ comments: true
 
 ---
 
+### Monoceros region
+
+January 2023. 3.3hrs exposure (49x4min) using a Samyang 135mmF2 lens & modified Canon DSLR. Click image for full resolution in new tab.
+
+<a href="/images/135mm/MonocerosFinal-49x4min-GIMP-processing.jpg" target="_blank">![](/images/135mm/MonocerosFinal-49x4min-GIMP-processing.jpg)</a>
+
+---
+
 ### The dark shark (LDN1235) and LDN1251 in Cepheus
 
 December 2022. 4.5hrs exposure using a Samyang 135mmF2 lens & modified Canon DSLR.  These are cold dusty clouds which block light from background stars. Click image for full resolution in new tab.

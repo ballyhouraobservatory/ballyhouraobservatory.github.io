@@ -8,6 +8,15 @@ comments: true
 
 ---
 
+### Orion region
+
+February 2022. Samyang 135mm F2 lens. 100x1min. Modified Canon kiss x7i camera (EOS700D). 
+Click image for full resolution in new tab.
+
+<a href="/images/135mm/Orion-100x-60sec.jpg" target="_blank">![](/images/135mm/Orion-100x-60sec.jpg)</a>
+
+---
+
 ### M45 The Pleiades, The seven sisters, スバル
 
 December 2021. Samyang 135mm F2 lens. 57x1min. Unmodified Canon kiss x7i camera (EOS700D). 

@@ -17,3 +17,5 @@ Data from the observatory has been used the following publications
 
 * [The First Post-Kepler Brightness Dips of KIC 8462852](https://arxiv.org/abs/1801.00732)
 * [V392 Persei: a γ-ray bright nova eruption from a known dwarf nova](https://arxiv.org/abs/2206.03443)
+* [A survey for variable young stars with small telescopes: VIII -- Properties of 1687 Gaia selected members in 21 nearby clusters](https://arxiv.org/abs/2401.16883)
+  

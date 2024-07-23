@@ -1,3 +1,5 @@
 .jekyll-cache
 .sass-cache
 _site
+.idea
+*.iml

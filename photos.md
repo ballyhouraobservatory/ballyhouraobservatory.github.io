@@ -8,6 +8,14 @@ comments: true
 
 ---
 
+### Seagull nebula and Thor's helmet
+
+January 2025. 90minute exposure (30x3min) using a Samyang 135mmF2 lens & modified Canon DSLR. Click image for full resolution in new tab.
+
+<a href="/images/135mm/MonocerosFinal-49x4min-GIMP-processing.jpg" target="_blank">![](/images/135mm/SeagullNeb-Jan25-2025-30x3min-135mm-lens-at-f28.png)</a>
+
+---
+
 ### Monoceros region
 
 January 2023. 3.3hrs exposure (49x4min) using a Samyang 135mmF2 lens & modified Canon DSLR. Click image for full resolution in new tab.

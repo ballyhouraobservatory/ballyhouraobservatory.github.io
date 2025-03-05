@@ -6,14 +6,6 @@ comments: false
 autoreload: false
 ---
 
-Previous 48 hours cloud and rain
-
-![Cloud and rain](https://52-8.xyz/images/telemetry/cloud.png)
-
-Previous 48 hours temperature sensors. Ambient and sky temp
-
-![Cloud and rain](https://52-8.xyz/images/telemetry/temperature.png)
-
 Forecast
 
 ![Forecast](https://www.yr.no/en/content/2-2962587/meteogram.svg)

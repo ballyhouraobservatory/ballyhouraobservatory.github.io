@@ -8,7 +8,138 @@
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+      .date {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .chart-container {
+      height: 300px;
+      width: 100%;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .line {
+      fill: none;
+      stroke-width: 2px;
+    }
+    
+    .outside-temp {
+      stroke: #FF6B35;
+    }
+    
+    .sky-temp {
+      stroke: #004E89;
+    }
+    
+    .rain-bar {
+      fill: #4299e1;
+      opacity: 0.7;
+    }
+    
+    .grid line {
+      stroke: #e0e0e0;
+      stroke-opacity: 0.7;
+      shape-rendering: crispEdges;
+    }
+    
+    .grid path {
+      stroke-width: 0;
+    }
+    
+    .axis text {
+      font-size: 12px;
+      fill: #666;
+    }
+    
+    .axis path, .axis line {
+      fill: none;
+      stroke: #e0e0e0;
+      shape-rendering: crispEdges;
+    }
+    
+    .tooltip {
+      position: absolute;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      pointer-events: none;
+      font-size: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .legend {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin: 0 10px;
+    }
+    
+    .legend-color {
+      width: 12px;
+      height: 3px;
+      margin-right: 5px;
+    }
+    
+    .legend-rain {
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
+      background-color: #4299e1;
+      opacity: 0.7;
+    }
+    
+    .forecast-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .forecast-item {
+      background-color: #f5f5f5;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .forecast-hour {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .forecast-icon {
+      margin: 8px 0;
+    }
+    
+    .forecast-temp {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .forecast-rain {
+      font-size: 12px;
+      color: #4299e1;
+      margin-top: 4px;
+    }
+    
+    .minmax {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #666;
+    }
+    </style>
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
   </head>
 
@@ -89,11 +220,57 @@
         </div>
         <div class="row">
           <div class="col">
-            <a href="#" class="thumbnail">
-              <img id="obscam" src="https://52-8.xyz/images/telemetry/cam3-snapshot.jpg" alt="obs cam">
-            </a>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">CAM1: </h3>
+              </div>
+              <div class="panel-body">
+                <a href="#" class="thumbnail">
+                  <img id="obscam" src="https://52-8.xyz/images/telemetry/cam3-snapshot.jpg" alt="obs cam">
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Weather Monitoring: </h3>
+              </div>
+              <div class="panel-body">
+                <div class="container">
+                  <div class="header">
+                    <h1 class="title">Weather Data</h1>
+                    <div class="date">February 24, 2025</div>
+                  </div>
+                  
+                  <div class="chart-container" id="chart"></div>
+                  
+                  <div class="legend">
+                    <div class="legend-item">
+                      <div class="legend-color" style="background-color: #FF6B35;"></div>
+                      <span>Ambient Temperature</span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-color" style="background-color: #004E89;"></div>
+                      <span>Sky Temperature</span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-rain"></div>
+                      <span>Rain</span>
+                    </div>
+                  </div>
+                  
+                  <div class="forecast-grid" id="forecast"></div>
+                  
+                  <div class="minmax" id="minmax"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col">
             <a href="#" class="thumbnail">
@@ -174,5 +351,6 @@
         poll_for_updates()
       });
     </script>
+    <script src="./dash.js"></script>
   </body>
 </html>

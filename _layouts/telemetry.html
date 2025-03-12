@@ -339,9 +339,9 @@
       // }
 
       function poll_for_updates() {
-        $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/cam3-snapshot.jpg?"+new Date().getTime());
+        $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot-cam1.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
-        $("#cam2").attr("src", "https://52-8.xyz/images/telemetry/cam2-snapshot.jpg?"+new Date().getTime());
+        $("#cam2").attr("src", "https://52-8.xyz/images/telemetry/snapshot-cam2.jpg?"+new Date().getTime());
         $("#oldcam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
         update_telemetry();
         setTimeout("poll_for_updates()", 60000);

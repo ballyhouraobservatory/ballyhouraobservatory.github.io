@@ -241,7 +241,7 @@
               </div>
               <div class="panel-body">
                 <a href="#" class="thumbnail">
-                  <img id="obscam" src="https://52-8.xyz/images/latest-fits.jpg" alt="latest fits">
+                  <img id="latestfits" src="https://52-8.xyz/images/latest-fits.jpg" alt="latest fits">
                 </a>
               </div>
             </div>
@@ -357,7 +357,7 @@
         $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot-obs1.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
         $("#cam2").attr("src", "https://52-8.xyz/images/telemetry/snapshot-obs2.jpg?"+new Date().getTime());
-        $("#oldcam").attr("src", "https://52-8.xyz/images/telemetry/snapshot.jpg?"+new Date().getTime());
+        $("#latestfits").attr("src", "https://52-8.xyz/images/latest-fits.jpg?"+new Date().getTime());
         update_telemetry();
         setTimeout("poll_for_updates()", 60000);
       }

@@ -10,135 +10,327 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <style>
+      /* Dashboard Layout */
+      .dashboard-page {
+        padding-bottom: 40px;
+      }
+
+      .dashboard-header {
+        margin-bottom: 30px;
+        border-bottom: 2px solid #f5f5f3;
+        padding-bottom: 20px;
+      }
+
+      .dashboard-header h1 {
+        margin: 0 0 8px 0;
+        font-size: 32px;
+      }
+
+      .last-updated {
+        margin: 0;
+        color: #999;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      /* Grid Layouts */
+      .dashboard-grid-1 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .dashboard-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .dashboard-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 1024px) {
+        .dashboard-grid-3 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .dashboard-grid-2,
+        .dashboard-grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Card Styles */
+      .status-card,
+      .image-card,
+      .chart-card,
+      .forecast-card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .status-card:hover,
+      .image-card:hover,
+      .chart-card:hover,
+      .forecast-card:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        background: linear-gradient(135deg, #ffffff 0%, #faf9f0 100%);
+      }
+
+      .card-header h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #131314;
+      }
+
+      .image-updated {
+        font-size: 12px;
+        color: #999;
+        font-weight: 400;
+      }
+
+      .status-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #4CAF50;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+      }
+
+      /* Status Card Content */
+      .card-content {
+        padding: 16px 20px;
+      }
+
+      .status-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #f5f5f3;
+        font-size: 14px;
+      }
+
+      .status-item:last-child {
+        border-bottom: none;
+      }
+
+      .status-item .label {
+        color: #666;
+        font-weight: 500;
+      }
+
+      .status-item .value {
+        color: #131314;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      .status-item .unit {
+        color: #999;
+        font-size: 12px;
+        margin-left: 4px;
+        font-weight: 400;
+      }
+
+      .refresh-indicator {
+        height: 4px;
+        background: linear-gradient(90deg, #d97757, #6b9ed4, #d97757);
+        background-size: 200% 100%;
+        border-radius: 2px;
+        animation: shimmer 2s infinite;
+        margin-top: 12px;
+      }
+
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      /* Image Container */
+      .image-container {
+        padding: 16px 20px;
+        text-align: center;
+      }
+
+      .image-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        display: inline-block;
+      }
+
+      /* Chart Styles */
+      .chart-card {
+        padding: 20px;
+      }
+
       .date {
-      font-size: 14px;
-      color: #666;
-    }
-    
-    .chart-container {
-      height: 300px;
-      width: 100%;
-      margin-bottom: 30px;
-      position: relative;
-    }
-    
-    .line {
-      fill: none;
-      stroke-width: 2px;
-    }
-    
-    .outside-temp {
-      stroke: #FF6B35;
-    }
-    
-    .sky-temp {
-      stroke: #004E89;
-    }
-    
-    .rain-bar {
-      fill: #4299e1;
-      opacity: 0.7;
-    }
-    
-    .grid line {
-      stroke: #e0e0e0;
-      stroke-opacity: 0.7;
-      shape-rendering: crispEdges;
-    }
-    
-    .grid path {
-      stroke-width: 0;
-    }
-    
-    .axis text {
-      font-size: 12px;
-      fill: #666;
-    }
-    
-    .axis path, .axis line {
-      fill: none;
-      stroke: #e0e0e0;
-      shape-rendering: crispEdges;
-    }
-    
-    .tooltip {
-      position: absolute;
-      padding: 8px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      pointer-events: none;
-      font-size: 12px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    .legend {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    
-    .legend-item {
-      display: flex;
-      align-items: center;
-      margin: 0 10px;
-    }
-    
-    .legend-color {
-      width: 12px;
-      height: 3px;
-      margin-right: 5px;
-    }
-    
-    .legend-rain {
-      width: 12px;
-      height: 12px;
-      margin-right: 5px;
-      background-color: #4299e1;
-      opacity: 0.7;
-    }
-    
-    .forecast-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 20px;
-    }
-    
-    .forecast-item {
-      background-color: #f5f5f5;
-      border-radius: 6px;
-      padding: 10px;
-      text-align: center;
-    }
-    
-    .forecast-hour {
-      font-size: 14px;
-      font-weight: 600;
-    }
-    
-    .forecast-icon {
-      margin: 8px 0;
-    }
-    
-    .forecast-temp {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    
-    .forecast-rain {
-      font-size: 12px;
-      color: #4299e1;
-      margin-top: 4px;
-    }
-    
-    .minmax {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      font-size: 12px;
-      color: #666;
-    }
+        font-size: 14px;
+        color: #666;
+      }
+
+      .chart-container {
+        height: 300px;
+        width: 100%;
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .line {
+        fill: none;
+        stroke-width: 2px;
+      }
+
+      .outside-temp {
+        stroke: #FF6B35;
+      }
+
+      .sky-temp {
+        stroke: #004E89;
+      }
+
+      .rain-bar {
+        fill: #4299e1;
+        opacity: 0.7;
+      }
+
+      .grid line {
+        stroke: #e0e0e0;
+        stroke-opacity: 0.7;
+        shape-rendering: crispEdges;
+      }
+
+      .grid path {
+        stroke-width: 0;
+      }
+
+      .axis text {
+        font-size: 12px;
+        fill: #666;
+      }
+
+      .axis path, .axis line {
+        fill: none;
+        stroke: #e0e0e0;
+        shape-rendering: crispEdges;
+      }
+
+      .tooltip {
+        position: absolute;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        pointer-events: none;
+        font-size: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .legend {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        margin: 0;
+      }
+
+      .legend-color {
+        width: 12px;
+        height: 3px;
+        margin-right: 5px;
+      }
+
+      .legend-rain {
+        width: 12px;
+        height: 12px;
+        margin-right: 5px;
+        background-color: #4299e1;
+        opacity: 0.7;
+      }
+
+      .forecast-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .forecast-item {
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .forecast-hour {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .forecast-icon {
+        margin: 8px 0;
+      }
+
+      .forecast-temp {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .forecast-rain {
+        font-size: 12px;
+        color: #4299e1;
+        margin-top: 4px;
+      }
+
+      .minmax {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #666;
+      }
+
+      .forecast-card .image-container {
+        padding: 0;
+      }
+
+      .forecast-card .image-container img {
+        border-radius: 0;
+        width: 100%;
+        height: auto;
+      }
     </style>
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
   </head>
@@ -166,155 +358,195 @@
     </div>
 
     <div id="main" role="main" class="container">
-      <article class="page">
+      <article class="page dashboard-page">
 
-        <h1>{{ page.title }}</h1>
-            
-        <div class="row">
-          <div class="col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Weather: <span id="observingConditionsOk"></span></h3>
-              </div>
-              <div class="panel-body">
-                <ul class="list-unstyled">
-                  <li><strong>Rain</strong> <span id="rain"></span></li>
-                  <li><strong>Darkness (SQM)</strong> <span id="sqm"></span></li>
-                  <li><strong>Sky temp</strong> <span id="skytemp"></span>°C</li>
-                  <li><strong>Ambient temp</strong> <span id="ambienttemp"></span>°C</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Observatory: Roof <span id="roof"></span></h3>
-              </div>
-              <div class="panel-body">
-                <ul class="list-unstyled">
-                  <li><strong>Main computer: </strong> <span id="maincomputer"></span></li>
-                  <li><strong>Mount Power: </strong> <span id="mountpower"></span></li>
-                  <li><strong>CCD Power</strong> <span id="ccdpower"></span></li>
-                  <li><strong>Focuser Power</strong> <span id="focuserpower"></span></li>
-                  <li><strong>Heaters</strong> <span id="heaterspower"></span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Telescope: </h3>
-              </div>
-              <div class="panel-body">
-                <ul class="list-unstyled">
-                  <!-- <li><strong>State</strong> Tracking</span></li>
-                  <li><strong>ALT - AZ</strong> xxx -- xxx</span></li>
-                  <li><strong>Guiding</strong> RMS=0.34</span></li>
-                  <li><strong>Focus</strong> HFR</span></li> -->
-                </ul>
-              </div>
-            </div>  
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">CAM1: </h3>
-              </div>
-              <div class="panel-body">
-                <a href="#" class="thumbnail">
-                  <img id="obscam" src="https://52-8.xyz/images/telemetry/snapshot-obs1.jpg" alt="obs cam">
-                </a>
-              </div>
-            </div>
-          </div>
+        <div class="dashboard-header">
+          <h1>{{ page.title }}</h1>
+          <p class="last-updated">Last updated: <span id="last-update">--:--</span></p>
         </div>
 
-        <div class="row">
-          <div class="col">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Most Recent Image: (raw uncalibrated) </h3>
+        <!-- Status Cards Row -->
+        <div class="dashboard-grid-3">
+          <!-- Weather Card -->
+          <div class="status-card weather-card">
+            <div class="card-header">
+              <h3>Weather</h3>
+              <div class="status-indicator" id="weather-status"></div>
+            </div>
+            <div class="card-content">
+              <div class="status-item">
+                <span class="label">Rain</span>
+                <span class="value" id="rain">--</span>
               </div>
-              <div class="panel-body">
-                <a href="#" class="thumbnail">
-                  <img id="latestfits" src="https://52-8.xyz/images/latest-fits.jpg" alt="latest fits">
-                </a>
+              <div class="status-item">
+                <span class="label">Sky Temp</span>
+                <span class="value" id="skytemp">--</span>
+                <span class="unit">°C</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Ambient Temp</span>
+                <span class="value" id="ambienttemp">--</span>
+                <span class="unit">°C</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Darkness (SQM)</span>
+                <span class="value" id="sqm">--</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Weather Monitoring: </h3>
+          <!-- Observatory Card -->
+          <div class="status-card observatory-card">
+            <div class="card-header">
+              <h3>Observatory</h3>
+              <div class="status-indicator" id="roof-status"></div>
+            </div>
+            <div class="card-content">
+              <div class="status-item">
+                <span class="label">Roof</span>
+                <span class="value" id="roof">--</span>
               </div>
-              <div class="panel-body">
-                <div class="container">
-                  <div class="header">
-                    <h1 class="title">Weather Data</h1>
-                    <div class="date">Previous 24hrs</div>
-                  </div>
-                  
-                  <div class="chart-container" id="chart"></div>
-                  
-                  <div class="legend">
-                    <div class="legend-item">
-                      <div class="legend-color" style="background-color: #FF6B35;"></div>
-                      <span>Ambient Temperature</span>
-                    </div>
-                    <div class="legend-item">
-                      <div class="legend-color" style="background-color: #004E89;"></div>
-                      <span>Sky Temperature</span>
-                    </div>
-                    <div class="legend-item">
-                      <div class="legend-rain"></div>
-                      <span>Rain</span>
-                    </div>
-                  </div>
-                  
-                  <div class="forecast-grid" id="forecast"></div>
-                  
-                  <div class="minmax" id="minmax"></div>
-                </div>
+              <div class="status-item">
+                <span class="label">Main Computer</span>
+                <span class="value" id="maincomputer">--</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Mount Power</span>
+                <span class="value" id="mountpower">--</span>
+              </div>
+              <div class="status-item">
+                <span class="label">CCD Power</span>
+                <span class="value" id="ccdpower">--</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Focuser Power</span>
+                <span class="value" id="focuserpower">--</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Heaters</span>
+                <span class="value" id="heaterspower">--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Feeds Card -->
+          <div class="status-card feeds-card">
+            <div class="card-header">
+              <h3>Live Data</h3>
+            </div>
+            <div class="card-content">
+              <p style="margin: 0; color: #999; font-size: 13px;">Updates every 60 seconds</p>
+              <div class="refresh-indicator" id="refresh-indicator"></div>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col">
-            <a href="#" class="thumbnail">
-              <img id="screenshot" src="https://52-8.xyz/images/telemetry/screenshot.png" alt="screenshot">
-            </a>
+        <!-- Images Grid Row -->
+        <div class="dashboard-grid-2">
+          <!-- Security Camera -->
+          <div class="image-card">
+            <div class="card-header">
+              <h3>Security Camera (CAM1)</h3>
+              <span class="image-updated">Live (max 5min old)</span>
+            </div>
+            <div class="image-container">
+              <img id="obscam" src="https://52-8.xyz/images/telemetry/snapshot-obs1.jpg" alt="Observatory security camera">
+            </div>
+          </div>
+
+          <!-- Observatory PC Screenshot -->
+          <div class="image-card">
+            <div class="card-header">
+              <h3>Observatory PC</h3>
+              <span class="image-updated">Screenshot</span>
+            </div>
+            <div class="image-container">
+              <img id="screenshot" src="https://52-8.xyz/images/telemetry/screenshot.png" alt="Observatory PC screenshot">
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <a href="#" class="thumbnail">
-              <img id="cam2" src="https://52-8.xyz/images/telemetry/snapshot-obs2.jpg" alt="screenshot">
-            </a>
+
+        <!-- Recent Image Row -->
+        <div class="dashboard-grid-1">
+          <div class="image-card">
+            <div class="card-header">
+              <h3>Most Recent Image</h3>
+              <span class="image-updated">Raw uncalibrated</span>
+            </div>
+            <div class="image-container">
+              <img id="latestfits" src="https://52-8.xyz/images/latest-fits.jpg" alt="Latest FITS image">
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <a href="#" class="thumbnail">
-              <img id="oldcam" src="https://52-8.xyz/images/telemetry/snapshot.jpg" alt="screenshot">
-            </a>
+
+        <!-- Weather Chart -->
+        <div class="dashboard-grid-1">
+          <div class="chart-card">
+            <div class="card-header">
+              <h3>Weather Monitoring</h3>
+              <span class="image-updated">Previous 24 hours</span>
+            </div>
+            <div class="chart-container" id="chart"></div>
+
+            <div class="legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: #FF6B35;"></div>
+                <span>Ambient Temperature</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: #004E89;"></div>
+                <span>Sky Temperature</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-rain"></div>
+                <span>Rain</span>
+              </div>
+            </div>
+
+            <div class="forecast-grid" id="forecast"></div>
+
+            <div class="minmax" id="minmax"></div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <a href="#" class="thumbnail">
-              <img id="clearoutside" src="https://clearoutside.com/forecast_image_medium/52.27/-8.27/forecast.png">
-            </a>
+
+        <!-- Forecasts Row -->
+        <div class="dashboard-grid-2">
+          <!-- YR.NO Forecast -->
+          <div class="forecast-card">
+            <div class="card-header">
+              <h3>Weather Forecast</h3>
+              <span class="image-updated">yr.no</span>
+            </div>
+            <div class="image-container">
+              <img src="https://www.yr.no/en/content/2-2962587/meteogram.svg" alt="YR.NO Weather Forecast">
+            </div>
+          </div>
+
+          <!-- Clear Outside Forecast -->
+          <div class="forecast-card">
+            <div class="card-header">
+              <h3>Observing Forecast</h3>
+              <span class="image-updated">Clear Outside</span>
+            </div>
+            <div class="image-container">
+              <img src="https://clearoutside.com/forecast_image_medium/52.27/-8.27/forecast.png" alt="Clear Outside Forecast">
+            </div>
           </div>
         </div>
-        
+
+        <!-- Sunset/Twilight Row -->
+        <div class="dashboard-grid-1">
+          <div class="forecast-card">
+            <div class="card-header">
+              <h3>Sunset & Twilight Times</h3>
+              <span class="image-updated">Annual chart</span>
+            </div>
+            <div class="image-container">
+              <img src="https://clearoutside.com/annual_darkness_image/52.2/-8.40/annual_darkness.png" alt="Sunset and twilight times">
+            </div>
+          </div>
+        </div>
+
         <div class="entry">
           {{ content }}
         </div>
@@ -353,16 +585,24 @@
       //          });
       // }
 
+      function update_last_updated() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        $("#last-update").text(hours + ':' + minutes);
+      }
+
       function poll_for_updates() {
         $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot-obs1.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
-        $("#cam2").attr("src", "https://52-8.xyz/images/telemetry/snapshot-obs2.jpg?"+new Date().getTime());
         $("#latestfits").attr("src", "https://52-8.xyz/images/latest-fits.jpg?"+new Date().getTime());
         update_telemetry();
+        update_last_updated();
         setTimeout("poll_for_updates()", 60000);
       }
 
       $( document ).ready(function() {
+        update_last_updated();
         poll_for_updates()
       });
     </script>

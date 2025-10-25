@@ -1,17 +1,21 @@
 
 .highlight {
-  background-color: #efefef;
-  padding: 7px 7px 7px 10px;
-  border: 1px solid #ddd;
-  -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
-  -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
-  box-shadow: 3px 3px rgba(0,0,0,0.1);
+  background-color: #f8f7f3;
+  padding: 15px 15px;
+  border: 1px solid #e8e6dd;
+  border-radius: 8px;
+  -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   margin: 20px 0 20px 0;
-  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
+  line-height: 1.5;
 }
 
 code {
-  font-family:'Bitstream Vera Sans Mono','Courier', monospace;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-size: 14px;
 }
 
 .highlight .c { color: #586E75 } /* Comment */

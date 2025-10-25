@@ -15,10 +15,13 @@ The details of these papers are outlined below.
 ### Paper one
 *A survey for variable stars with small telescopes: IX -- Evolution of Spot Properties on YSOs in IC5070*
 
-[The first paper](https://arxiv.org/abs/2403.10595) investigates the evolution of spot properties on YSOs in the IC 5070 region. 
+[The first paper](https://arxiv.org/abs/2403.10595) investigates the evolution of spot properties on YSOs in the IC 5070 region.
 This research focuses on understanding the variability in brightness and other properties of YSOs, which are crucial for studying stellar formation and evolution.
 
-![hoys-yso-fig5.png](..%2Fimages%2Fhoys-yso-fig5.png)
+<figure>
+  <img src="../images/hoys-yso-fig5.png" alt="Spot coverage plots from paper 1">
+  <figcaption>Spot coverage plots from paper 1</figcaption>
+</figure>
 
 The study leveraged a network of amateur astronomers who coordinated their observations to ensure continuous monitoring.
 This collaborative approach allowed for more comprehensive coverage and reduced the gaps in data collection.
@@ -35,11 +38,14 @@ Light curves affected by obscuration from circumstellar materials were more comm
 Two-thirds of periodic variables with disk excess emission were slow rotators, while two-thirds of those without disk excess were fast rotators, supporting the idea of a [circumstellar disk braking mechanisms](https://arxiv.org/pdf/astro-ph/0603673) in operation.
 
 ## Building Renovations
-![renovating.png](..%2Fimages%2Fobservatory%2Frenovating.png)
 
 In July 2024 we replaced the 34 year old outer cladding which lasted a lot longer than it should have.
 The original woodwork was starting to rot so was replaced with treated shiplap cladding and a windproof membrane instead of the previous roofing felt backing.
 This new cladding should protect the telescope and camera and allow the dehumidifier to be more efficient when the observatory is closed.
 
 The collage below shows the work, before, during and after. Still some remaining small work needed in the roof section.
-![collage.jpg](..%2Fimages%2Fobservatory%2Fcollage.jpg)
+
+<figure>
+  <img src="../images/observatory/collage.jpg" alt="Building renovation collage showing before, during and after">
+  <figcaption>Observatory cladding replacement: before, during, and after renovation</figcaption>
+</figure>

@@ -8,7 +8,7 @@ comments: true
 
 ---
 
-### Supernova SN2025rbs in NGC7335
+### Supernova SN2025rbs in NGC7331
 
 October 2025. 36x1min exposures stacked in Siril. Photmetry using astropy photutils. Mag 15.55 2025-10-23-20-56-35. 
 A luminance filter was used instead of a photometric filter so not standard. Submitted to AAVSO as 'CV' filter.

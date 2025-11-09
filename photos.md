@@ -8,6 +8,14 @@ comments: true
 
 ---
 
+### Supernova SN2025rbs in NGC7335
+
+October 2025. 36x1min exposures stacked in Siril. Photmetry using astropy photutils. Mag 15.55 2025-10-23-20-56-35. 
+A luminance filter was used instead of a photometric filter so not standard. Submitted to AAVSO as 'CV' filter.
+
+![2025-10-23-NGC7331-stacked-stretched-annotated.png](images/photos/2025-10-23-NGC7331-stacked-stretched-annotated.png)
+
+
 ### Seagull nebula and Thor's helmet
 
 January 2025. 90minute exposure (30x3min) using a Samyang 135mmF2 lens & modified Canon DSLR. Click image for full resolution in new tab.

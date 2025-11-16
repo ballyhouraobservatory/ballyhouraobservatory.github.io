@@ -1,30 +1,39 @@
 ---
 layout: post
-title:  "Generative AI and the future of astronomy research"
-excerpt: An optimistic view of the future of both amateur and professional astronomy with the boom of generative AI.
+title:  "My ideas on Generative AI use in Astronomy"
+author: "Derek"
+excerpt: An optimistic view of the future of both amateur and professional astronomy in the age of generative AI.
 published: false
 images:
   - url: /images/standing-lookingup.png
 ---
 It built an *entire system*[^1] from scratch in less time than it previously took to analyse a single night's dataset. 
-This is my recent experience on a rainy weekend with artificial intelligence (AI) in astronomy. Building a system to find planets orbiting distant stars (exoplanets) from a few hundred images of the same patch of sky.
+This is my recent experience on a rainy weekend with AI in astronomy. Building a system to find planets orbiting distant stars (exoplanets) from a few hundred images of the same patch of sky.
 Prior to this, I would have fed these images into *traditional* software and let it churn for about 12 to 15 hours before seeing the output,
 the characteristic dip in brightness caused by a distant planet crossing in front of its 'sun'.
 If the traditional software takes half a day to process ~4Gb of data from a small observatory, imagine the challenges when LSST comes online with 500x more data per night (~20Tb/night).
 
+***My background**: I'm an amateur astronomer and a professional software engineer. 
+I don't have academic qualifications in astronomy but have completed [AAVSO courses in photometry ](https://www.aavso.org/choice-astronomy)and am reasonably competent in that narrow field with about 8 years experience.*
+
 ### The problem
 
-"It can't do it yet" is a common quote I've heard a few times from astronomers when it comes to using AI to extract knowledge from data. In my opinion, they are correct, and it may never be able to 'do it'
-Astronomers are right to be cautious 
-Ever since late 2022 when ChatGPT was released there has been a huge boom and hype around AI I feel there is some reluctance to use AI in Astronomy. This is just my opinion and stems from what we commonly call AI in 2025 which is really a specific type of AI built on human language (Large language models). 
+When it comes to AI use in astronomy research, "It can't do it yet" is a common quote I've heard. 
+In my opinion, they are correct, and it may never be able to 'do it'. There is a nuance to this though, and I believe this is the problem.
+There may be an expectation that AI is an 'oracle', extracting insights from raw data, whereas I argue that it is more suitable as a 'research assistant' and 'coding partner'.
 
-why astronomers are RIGHT to be cautious
-Reinhard Genzel, a Nobel laureate and an astrophysicist at the Max Planck Institute, expressed some skepticism[^2]
+Astronomers are right to be cautious about AI usage thought. 
+Reinhard Genzel, a Nobel laureate and an astrophysicist expressed skepticism[^2] when a group of researchers published an AI generated image of the Sag-a black hole based on data discarded form the event horizon telescope. 
 
-"What if AI doesn't touch the data at all—it just writes the code that does?" ---- AI to change the process vs. AI to change the data
+TODO: section on ai gen astrophotos. include apod and cac poll
 ![whatsapp-ai-poll.png](../images/whatsapp-ai-poll.png)
 
+
+
 ### The central idea. What if...
+
+"What if AI doesn't touch the data at all—it just writes the code that does?" ---- AI to change the process vs. AI to change the data
+
 
 so above is all generative AI. The example of nobel laurate and the black hole stuff, APOD example of gen images, the whatsapp group poll, the quote from astronomer "cant do it yet."
 Now, what if AI does not touch the data at all. It does not generate direct insights from data. What if we take a different angle and use AI to generate code that does.
@@ -33,8 +42,6 @@ Here's what everyone is missing. Generative AI is really great for generating co
 insert something here to further clarify ai changing the process not the data. Maybe an image
 
 #### Vibe coding a solution (the process)
-
-***My background**: I'm an amateur astronomer and a professional software engineer. I don't have academic qualifications in astronomy but have completed some AAVSO courses in photometry am reasonably competent in that narrow field with about 8 years experience.*
 
 What is Claude Code? 
 
@@ -48,9 +55,20 @@ Include final image of TrES3b
   <figcaption>Actual exoplanet transit plot output from the AI-generated code described in this post. Raw data taken by this observatory.</figcaption>
 </figure>
 
+**NOTE**: the full 
 
-#### Insights and surprises
-* Claude-code's knowledge of astro image processing was beyond anything I imagined. 
+#### Trashcan
+Ever since late 2022 when ChatGPT was released there has been a huge boom and hype around AI I feel there is some reluctance to use AI in Astronomy.
+This is just my opinion and stems from what we commonly call AI in 2025 which is really a specific type of AI built on human language (Large language models).
+
+#### Final thoughts, insights and surprises
+
+As an amateur astronomer I'm optimistic about the use of Generative AI in astronomy. 
+I believe it will accelerate our understanding of the universe by building tools rather than *'understanding'* the data.
+However as a software engineer, I feel that the end of an era is soon. Since modern, state-of-the-art tools like Claude code can build entire systems it may be the end of human written software and even the end of open source software itself.
+I published the [AI generated codebase on github](https://github.com/dokeeffe/exop) for others to use, but was there any point?
+
+* Claude-code's knowledge of astronomy and astro-image processing was beyond anything I imagined. 
   * It knew about specific noise reduction methods that I was only vaguely aware of. It knew how to implement these in code.
   * It knew a specific method of generating a synthetic comparison star by Broeg et al.[^4] which I had read about but would have struggled to implement. 
 * Performance improvements. 
@@ -123,7 +141,7 @@ Include final image of TrES3b
 ## References
 
 [^1]: [EXOP: Exoplanet Observation Photometry. AI generated timeseries photometry toolkit for exoplanet transit observations](https://github.com/dokeeffe/exop)
-[^2]: [Nobel Prize Winner Warns About Astronomers Using AI to Make Discoveries](https://futurism.com/nobel-prize-warns-astronomers-using-ai#:~:text=Reinhard%20Genzel%2C%20a%20Nobel%20laureate%20and%20an%20astrophysicist,in%20what%20they’re%20doing%2C”%20Genzel%20told%20Live%20Science.)
+[^2]: [Nobel laureate raises questions about AI-generated image of black hole](https://www.livescience.com/space/black-holes/artificial-intelligence-is-not-a-miracle-cure-nobel-laureate-raises-questions-about-ai-generated-image-of-black-hole-spinning-at-the-heart-of-our-galaxy)
 [^3]: [Claude code: Generative AI coding assistant from Anthropic](https://claudecode.io)
 [^4]: [Broeg, C. & Fernández, M. & Neuhäuser, R.. (2005). A new algorithm for differential photometry: Computing an optimum artificial comparison star](https://www.researchgate.net/publication/227518597_A_new_algorithm_for_differential_photometry_Computing_an_optimum_artificial_comparison_star)
 [^5]: [Anthropic Claude generative AI](https://claude.com/product/overview)

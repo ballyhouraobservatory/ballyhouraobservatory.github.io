@@ -580,6 +580,7 @@
                   $("#mount").html(indi.iOptronV3.CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
                   $("#ccdcamera").html(indi["Atik 383L"].CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
                   $("#radec").html(indi.iOptronV3.TELESCOPE_PARK.UNPARK ? "TRACKING" : "PARKED");
+                  $("#sqm").html(parseFloat(indi.SQM.SKY_QUALITY.SKY_BRIGHTNESS).toFixed(1));
                });
       }
 

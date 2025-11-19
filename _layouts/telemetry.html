@@ -625,42 +625,18 @@
             </div>
           </div>
 
-          <!-- Live Feeds Card -->
-          <div class="status-card feeds-card">
-            <div class="card-header">
-              <h3>Live Data</h3>
-            </div>
-            <div class="card-content">
-              <p style="margin: 0; color: #999; font-size: 13px;">Updates every 60 seconds</p>
-              <div class="refresh-indicator" id="refresh-indicator"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Images Grid Row -->
-        <div class="dashboard-grid-2">
           <!-- Security Camera -->
           <div class="image-card">
             <div class="card-header">
               <h3>Security Camera (CAM1)</h3>
-              <span class="image-updated">Live (max 5min old)</span>
+              <span class="image-updated">Live</span>
             </div>
             <div class="image-container">
               <img id="obscam" src="https://52-8.xyz/images/telemetry/snapshot-obs1.jpg" alt="Observatory security camera">
             </div>
           </div>
-
-          <!-- Observatory PC Screenshot -->
-          <div class="image-card">
-            <div class="card-header">
-              <h3>Observatory PC</h3>
-              <span class="image-updated">Screenshot</span>
-            </div>
-            <div class="image-container">
-              <img id="screenshot" src="https://52-8.xyz/images/telemetry/screenshot.png" alt="Observatory PC screenshot">
-            </div>
-          </div>
         </div>
+
 
         <!-- Schedule Grid Row -->
         <div class="dashboard-grid-1">
@@ -889,13 +865,10 @@
           type: 'GET',
           dataType: 'text',
           success: function(data) {
-            // Split into lines and get the last 6 lines
-            let lines = data.trim().split('\n');
-            let lastLines = lines.slice(Math.max(0, lines.length - 6)).join('\n');
-            $("#log-text").text(lastLines);
-            // Auto-scroll to bottom
+            $("#log-text").text(data);
+            // Auto-scroll to top to show newest entries
             let logElement = document.getElementById('log-text');
-            logElement.scrollTop = logElement.scrollHeight;
+            logElement.scrollTop = 0;
           },
           error: function() {
             $("#log-text").text('Unable to load scheduler log');
@@ -919,6 +892,7 @@
 
       $( document ).ready(function() {
         update_last_updated();
+        update_scheduler_log();
         poll_for_updates()
       });
     </script>

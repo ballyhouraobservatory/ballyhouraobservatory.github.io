@@ -443,6 +443,94 @@
         font-weight: 500;
         color: #b71c1c;
       }
+
+      /* Log Panel Styles */
+      .log-panel {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+      }
+
+      .log-panel:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .log-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        background: linear-gradient(135deg, #ffffff 0%, #faf9f0 100%);
+      }
+
+      .log-header h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #131314;
+      }
+
+      .live-indicator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #666;
+      }
+
+      .live-spinner {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border: 2px solid #4CAF50;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .log-container {
+        padding: 16px 20px;
+        flex: 1;
+      }
+
+      .log-text {
+        background-color: #f5f5f5;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 12px;
+        height: 150px;
+        overflow-y: auto;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        line-height: 1.4;
+        color: #333;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .log-text::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .log-text::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      .log-text::-webkit-scrollbar-thumb {
+        background: #bbb;
+        border-radius: 4px;
+      }
+
+      .log-text::-webkit-scrollbar-thumb:hover {
+        background: #888;
+      }
     </style>
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
   </head>
@@ -599,6 +687,22 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scheduler Log Panel -->
+        <div class="dashboard-grid-1">
+          <div class="log-panel">
+            <div class="log-header">
+              <h3>Scheduler Log</h3>
+              <div class="live-indicator">
+                <div class="live-spinner" id="log-spinner"></div>
+                <span>Live</span>
+              </div>
+            </div>
+            <div class="log-container">
+              <div class="log-text" id="log-text">Loading log...</div>
             </div>
           </div>
         </div>
@@ -779,6 +883,26 @@
         $("#last-update").text(hours + ':' + minutes);
       }
 
+      function update_scheduler_log() {
+        $.ajax({
+          url: 'https://52-8.xyz/images/telemetry/ekos_log.txt?' + new Date().getTime(),
+          type: 'GET',
+          dataType: 'text',
+          success: function(data) {
+            // Split into lines and get the last 6 lines
+            let lines = data.trim().split('\n');
+            let lastLines = lines.slice(Math.max(0, lines.length - 6)).join('\n');
+            $("#log-text").text(lastLines);
+            // Auto-scroll to bottom
+            let logElement = document.getElementById('log-text');
+            logElement.scrollTop = logElement.scrollHeight;
+          },
+          error: function() {
+            $("#log-text").text('Unable to load scheduler log');
+          }
+        });
+      }
+
       function poll_for_updates() {
         $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot-obs1.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
@@ -788,6 +912,7 @@
         update_pc_state();
         update_indi_props();
         update_schedule();
+        update_scheduler_log();
         update_last_updated();
         setTimeout("poll_for_updates()", 60000);
       }

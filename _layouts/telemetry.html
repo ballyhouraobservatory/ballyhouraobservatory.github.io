@@ -569,21 +569,11 @@
                   $( "#rain" ).html( telemetry.rain ? 'Raining' : 'Not Raining')
                });
       }
-      // function update_telemetry() {
-      //   $.getJSON('https://52-8.xyz/images/telemetry/telemetry.json?'+new Date().getTime(), function(telemetry) {
-      //             $( "#skytemp" ).html( telemetry.sky  )
-      //             $( "#ambienttemp" ).html( telemetry.ambientTemp  )
-      //             $( "#rain" ).html( telemetry.rain ? 'Raining' : 'Not Raining')
-      //             $( "#sqm" ).html( telemetry.sqm )
-      //             $( "#observingConditionsOk" ).html( telemetry.observingConditionsOk )
-      //             $( "#maincomputer" ).html( telemetry.mainControlSystem )
-      //             $( "#mountpower" ).html( telemetry.mount )
-      //             $( "#ccdpower" ).html( telemetry.ccd )
-      //             $( "#focuserpower" ).html( telemetry.focuserSystem )
-      //             $( "#heaterspower" ).html( telemetry.heaters )
-      //             $( "#roof" ).html( telemetry.roof )
-      //          });
-      // }
+      function update_roof() {
+        $.getJSON('https://52-8.xyz/images/telemetry/roof.json?'+new Date().getTime(), function(roof) {
+                  $( "#roof" ).html( roof.state )
+               });
+      }
 
       function update_last_updated() {
         const now = new Date();
@@ -597,6 +587,7 @@
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
         $("#latestfits").attr("src", "https://52-8.xyz/images/latest-fits.jpg?"+new Date().getTime());
         update_telemetry();
+        update_roof();
         update_last_updated();
         setTimeout("poll_for_updates()", 60000);
       }

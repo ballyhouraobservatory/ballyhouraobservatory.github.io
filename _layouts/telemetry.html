@@ -411,20 +411,16 @@
                 <span class="value" id="maincomputer">--</span>
               </div>
               <div class="status-item">
-                <span class="label">Mount Power</span>
-                <span class="value" id="mountpower">--</span>
+                <span class="label">Mount</span>
+                <span class="value" id="mount">--</span>
               </div>
               <div class="status-item">
-                <span class="label">CCD Power</span>
-                <span class="value" id="ccdpower">--</span>
+                <span class="label">CCD Camera</span>
+                <span class="value" id="ccdcamera">--</span>
               </div>
               <div class="status-item">
-                <span class="label">Focuser Power</span>
-                <span class="value" id="focuserpower">--</span>
-              </div>
-              <div class="status-item">
-                <span class="label">Heaters</span>
-                <span class="value" id="heaterspower">--</span>
+                <span class="label">Telescope</span>
+                <span class="value" id="radec">--</span>
               </div>
             </div>
           </div>
@@ -579,6 +575,13 @@
                   $("#maincomputer").html(pc.online ? "ONLINE" : "OFFLINE");
                });
       }
+      function update_indi_props() {
+        $.getJSON('https://52-8.xyz/images/telemetry/indi_properties.json?'+new Date().getTime(), function(indi) {
+                  $("#mount").html(indi.iOptronV3.CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
+                  $("#ccdcamera").html(indi["Atik 383L"].CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
+                  $("#radec").html(indi.iOptronV3.TELESCOPE_PARK.UNPARK ? "TRACKING" : "PARKED");
+               });
+      }
 
       function update_last_updated() {
         const now = new Date();
@@ -594,6 +597,7 @@
         update_telemetry();
         update_roof();
         update_pc_state();
+        update_indi_props();
         update_last_updated();
         setTimeout("poll_for_updates()", 60000);
       }

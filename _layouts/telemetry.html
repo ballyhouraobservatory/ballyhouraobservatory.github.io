@@ -574,6 +574,11 @@
                   $( "#roof" ).html( roof.state )
                });
       }
+      function update_pc_state() {
+        $.getJSON('https://52-8.xyz/images/telemetry/pc_state.json?'+new Date().getTime(), function(pc) {
+                  $("#maincomputer").html(pc.online ? "ONLINE" : "OFFLINE");
+               });
+      }
 
       function update_last_updated() {
         const now = new Date();
@@ -588,6 +593,7 @@
         $("#latestfits").attr("src", "https://52-8.xyz/images/latest-fits.jpg?"+new Date().getTime());
         update_telemetry();
         update_roof();
+        update_pc_state();
         update_last_updated();
         setTimeout("poll_for_updates()", 60000);
       }

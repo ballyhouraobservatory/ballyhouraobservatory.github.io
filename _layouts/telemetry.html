@@ -571,7 +571,7 @@
       }
       function update_roof() {
         $.getJSON('https://52-8.xyz/images/telemetry/roof.json?'+new Date().getTime(), function(roof) {
-                  $( "#roof" ).html( roof.state )
+                  $("#roof").html(roof.state + ' since ' + roof.last_changed);
                });
       }
       function update_pc_state() {

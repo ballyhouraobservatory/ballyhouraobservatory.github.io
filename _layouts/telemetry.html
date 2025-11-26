@@ -795,7 +795,11 @@
         $.getJSON('https://52-8.xyz/images/telemetry/pc_state.json?'+new Date().getTime(), function(pc) {
                   if (pc.online) {
                     const uptimeHours = (pc.uptime_seconds / 3600).toFixed(1);
-                    $("#maincomputer").html("ONLINE (" + uptimeHours + "h)");
+                    const load1min = pc.load_average['1min'].toFixed(2);
+                    const load5min = pc.load_average['5min'].toFixed(2);
+                    const load15min = pc.load_average['15min'].toFixed(2);
+                    const html = "ONLINE (" + uptimeHours + "h)<br/><span style='font-size: 12px; color: #999;'>Load: " + load1min + " / " + load5min + " / " + load15min + "</span>";
+                    $("#maincomputer").html(html);
                   } else {
                     $("#maincomputer").html("OFFLINE");
                   }

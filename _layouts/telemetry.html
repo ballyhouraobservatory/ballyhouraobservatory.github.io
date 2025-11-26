@@ -793,7 +793,12 @@
       }
       function update_pc_state() {
         $.getJSON('https://52-8.xyz/images/telemetry/pc_state.json?'+new Date().getTime(), function(pc) {
-                  $("#maincomputer").html(pc.online ? "ONLINE" : "OFFLINE");
+                  if (pc.online) {
+                    const uptimeHours = (pc.uptime_seconds / 3600).toFixed(1);
+                    $("#maincomputer").html("ONLINE (" + uptimeHours + "h)");
+                  } else {
+                    $("#maincomputer").html("OFFLINE");
+                  }
                });
       }
       function update_indi_props() {

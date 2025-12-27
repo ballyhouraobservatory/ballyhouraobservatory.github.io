@@ -331,6 +331,206 @@
         width: 100%;
         height: auto;
       }
+
+      /* Schedule Grid Styles */
+      .schedule-card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .schedule-card:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      .schedule-table thead {
+        background: linear-gradient(135deg, #ffffff 0%, #faf9f0 100%);
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .schedule-table th {
+        padding: 12px 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #131314;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .schedule-table td {
+        padding: 10px 16px;
+        border-bottom: 1px solid #f5f5f3;
+        color: #131314;
+      }
+
+      .schedule-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .schedule-table tbody tr:hover {
+        background-color: #fafaf8;
+      }
+
+      .state-idle {
+        background-color: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        color: #666;
+      }
+
+      .state-running {
+        background-color: #c8e6c9;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        color: #1b5e20;
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border: 2px solid #1b5e20;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .state-scheduled {
+        background-color: #fff9c4;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        color: #f57f17;
+      }
+
+      .state-completed {
+        background-color: #b2dfdb;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        color: #004d40;
+      }
+
+      .state-error {
+        background-color: #ffcdd2;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        color: #b71c1c;
+      }
+
+      /* Log Panel Styles */
+      .log-panel {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+      }
+
+      .log-panel:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .log-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        background: linear-gradient(135deg, #ffffff 0%, #faf9f0 100%);
+      }
+
+      .log-header h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #131314;
+      }
+
+      .live-indicator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #666;
+      }
+
+      .live-spinner {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border: 2px solid #4CAF50;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .log-container {
+        padding: 16px 20px;
+        flex: 1;
+      }
+
+      .log-text {
+        background-color: #f5f5f5;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 12px;
+        height: 150px;
+        overflow-y: auto;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        line-height: 1.4;
+        color: #333;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .log-text::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .log-text::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      .log-text::-webkit-scrollbar-thumb {
+        background: #bbb;
+        border-radius: 4px;
+      }
+
+      .log-text::-webkit-scrollbar-thumb:hover {
+        background: #888;
+      }
     </style>
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
   </head>
@@ -411,57 +611,74 @@
                 <span class="value" id="maincomputer">--</span>
               </div>
               <div class="status-item">
-                <span class="label">Mount Power</span>
-                <span class="value" id="mountpower">--</span>
+                <span class="label">Mount</span>
+                <span class="value" id="mount">--</span>
               </div>
               <div class="status-item">
-                <span class="label">CCD Power</span>
-                <span class="value" id="ccdpower">--</span>
+                <span class="label">CCD Camera</span>
+                <span class="value" id="ccdcamera">--</span>
               </div>
               <div class="status-item">
-                <span class="label">Focuser Power</span>
-                <span class="value" id="focuserpower">--</span>
-              </div>
-              <div class="status-item">
-                <span class="label">Heaters</span>
-                <span class="value" id="heaterspower">--</span>
+                <span class="label">Telescope</span>
+                <span class="value" id="radec">--</span>
               </div>
             </div>
           </div>
 
-          <!-- Live Feeds Card -->
-          <div class="status-card feeds-card">
-            <div class="card-header">
-              <h3>Live Data</h3>
-            </div>
-            <div class="card-content">
-              <p style="margin: 0; color: #999; font-size: 13px;">Updates every 60 seconds</p>
-              <div class="refresh-indicator" id="refresh-indicator"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Images Grid Row -->
-        <div class="dashboard-grid-2">
           <!-- Security Camera -->
           <div class="image-card">
             <div class="card-header">
               <h3>Security Camera (CAM1)</h3>
-              <span class="image-updated">Live (max 5min old)</span>
+              <span class="image-updated">Live</span>
             </div>
             <div class="image-container">
               <img id="obscam" src="https://52-8.xyz/images/telemetry/snapshot-obs1.jpg" alt="Observatory security camera">
             </div>
           </div>
+        </div>
 
-          <!-- Observatory PC Screenshot -->
-          <div class="image-card">
+
+        <!-- Schedule Grid Row -->
+        <div class="dashboard-grid-1">
+          <div class="schedule-card">
             <div class="card-header">
-              <h3>Observatory PC</h3>
-              <span class="image-updated">Screenshot</span>
+              <h3>Tonight's Schedule</h3>
+              <span class="image-updated">Observable targets</span>
             </div>
-            <div class="image-container">
-              <img id="screenshot" src="https://52-8.xyz/images/telemetry/screenshot.png" alt="Observatory PC screenshot">
+            <div style="padding: 16px 20px; overflow-x: auto;">
+              <table class="schedule-table" id="schedule-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>State</th>
+                    <th>Completed</th>
+                    <th>Altitude</th>
+                    <th>Startup</th>
+                    <th>End</th>
+                  </tr>
+                </thead>
+                <tbody id="schedule-body">
+                  <tr>
+                    <td colspan="6" style="text-align: center; color: #999;">Loading schedule...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scheduler Log Panel -->
+        <div class="dashboard-grid-1">
+          <div class="log-panel">
+            <div class="log-header">
+              <h3>Scheduler Log</h3>
+              <div class="live-indicator">
+                <div class="live-spinner" id="log-spinner"></div>
+                <span>Live</span>
+              </div>
+            </div>
+            <div class="log-container">
+              <div class="log-text" id="log-text">Loading log...</div>
             </div>
           </div>
         </div>
@@ -569,21 +786,80 @@
                   $( "#rain" ).html( telemetry.rain ? 'Raining' : 'Not Raining')
                });
       }
-      // function update_telemetry() {
-      //   $.getJSON('https://52-8.xyz/images/telemetry/telemetry.json?'+new Date().getTime(), function(telemetry) {
-      //             $( "#skytemp" ).html( telemetry.sky  )
-      //             $( "#ambienttemp" ).html( telemetry.ambientTemp  )
-      //             $( "#rain" ).html( telemetry.rain ? 'Raining' : 'Not Raining')
-      //             $( "#sqm" ).html( telemetry.sqm )
-      //             $( "#observingConditionsOk" ).html( telemetry.observingConditionsOk )
-      //             $( "#maincomputer" ).html( telemetry.mainControlSystem )
-      //             $( "#mountpower" ).html( telemetry.mount )
-      //             $( "#ccdpower" ).html( telemetry.ccd )
-      //             $( "#focuserpower" ).html( telemetry.focuserSystem )
-      //             $( "#heaterspower" ).html( telemetry.heaters )
-      //             $( "#roof" ).html( telemetry.roof )
-      //          });
-      // }
+      function update_roof() {
+        $.getJSON('https://52-8.xyz/images/telemetry/roof.json?'+new Date().getTime(), function(roof) {
+                  $("#roof").html(roof.state + ' since ' + roof.last_changed);
+               });
+      }
+      function update_pc_state() {
+        $.getJSON('https://52-8.xyz/images/telemetry/pc_state.json?'+new Date().getTime(), function(pc) {
+                  if (pc.online) {
+                    const uptimeHours = (pc.uptime_seconds / 3600).toFixed(1);
+                    const load1min = pc.load_average['1min'].toFixed(2);
+                    const load5min = pc.load_average['5min'].toFixed(2);
+                    const load15min = pc.load_average['15min'].toFixed(2);
+                    const html = "ONLINE (" + uptimeHours + "h)<br/><span style='font-size: 12px; color: #999;'>Load: " + load1min + " / " + load5min + " / " + load15min + "</span>";
+                    $("#maincomputer").html(html);
+                  } else {
+                    $("#maincomputer").html("OFFLINE");
+                  }
+               });
+      }
+      function update_indi_props() {
+        $.getJSON('https://52-8.xyz/images/telemetry/indi_properties.json?'+new Date().getTime(), function(indi) {
+                  $("#mount").html(indi.iOptronV3.CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
+                  $("#ccdcamera").html(indi["Atik 383L"].CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
+                  $("#radec").html(indi.iOptronV3.TELESCOPE_PARK.UNPARK ? "TRACKING" : "PARKED");
+                  $("#sqm").html(parseFloat(indi.SQM.SKY_QUALITY.SKY_BRIGHTNESS).toFixed(1));
+               });
+      }
+
+      function getStateClass(state) {
+        // Map state numbers to classes
+        // 0: IDLE, 1: RUNNING, 2: SCHEDULED, 7: COMPLETED, other: ERROR
+        switch(state) {
+          case 0: return 'state-idle';
+          case 2: return 'state-scheduled';
+          case 3: return 'state-running';
+          case 5: return 'state-running';
+          case 7: return 'state-completed';
+          default: return 'state-error';
+        }
+      }
+
+      function getStateName(state) {
+        switch(state) {
+          case 0: return 'Idle';
+          case 2: return 'Scheduled';
+          case 3: return 'Running';
+          case 5: return 'Running';
+          case 7: return 'Completed';
+          default: return 'Error';
+        }
+      }
+
+      function update_schedule() {
+        $.getJSON('https://52-8.xyz/images/telemetry/ekos.json?'+new Date().getTime(), function(schedule) {
+          let html = '';
+          schedule.forEach(function(item) {
+            let stateHtml = '<span class="' + getStateClass(item.state) + '">';
+            if (item.state === 3 || item.state === 5) {
+              stateHtml += '<span class="spinner"></span>';
+            }
+            stateHtml += getStateName(item.state) + '</span>';
+
+            html += '<tr>';
+            html += '<td>' + item.name + '</td>';
+            html += '<td>' + stateHtml + '</td>';
+            html += '<td>' + item.completedCount + '/' + item.sequenceCount + '</td>';
+            html += '<td>' + item.altitudeFormatted + '</td>';
+            html += '<td>' + item.startupFormatted + '</td>';
+            html += '<td>' + item.endFormatted + '</td>';
+            html += '</tr>';
+          });
+          $("#schedule-body").html(html);
+        });
+      }
 
       function update_last_updated() {
         const now = new Date();
@@ -592,17 +868,40 @@
         $("#last-update").text(hours + ':' + minutes);
       }
 
+      function update_scheduler_log() {
+        $.ajax({
+          url: 'https://52-8.xyz/images/telemetry/ekos_log.txt?' + new Date().getTime(),
+          type: 'GET',
+          dataType: 'text',
+          success: function(data) {
+            $("#log-text").text(data);
+            // Auto-scroll to top to show newest entries
+            let logElement = document.getElementById('log-text');
+            logElement.scrollTop = 0;
+          },
+          error: function() {
+            $("#log-text").text('Unable to load scheduler log');
+          }
+        });
+      }
+
       function poll_for_updates() {
         $("#obscam").attr("src", "https://52-8.xyz/images/telemetry/snapshot-obs1.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://52-8.xyz/images/telemetry/screenshot.png?"+new Date().getTime());
         $("#latestfits").attr("src", "https://52-8.xyz/images/latest-fits.jpg?"+new Date().getTime());
         update_telemetry();
+        update_roof();
+        update_pc_state();
+        update_indi_props();
+        update_schedule();
+        update_scheduler_log();
         update_last_updated();
         setTimeout("poll_for_updates()", 60000);
       }
 
       $( document ).ready(function() {
         update_last_updated();
+        update_scheduler_log();
         poll_for_updates()
       });
     </script>

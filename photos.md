@@ -8,6 +8,14 @@ comments: true
 
 ---
 
+### The Crab nebula M1
+
+Imaged December 2025. Celestron C11, Atik383L+ mono camera. About 2 hours of total exposure time. Most (~70%) of the exposure time was through a LUM (clear) filter. The remaining time was split between red,green and blue filters.
+The colour image is then constructed by stacking and combining these in [Siril](https://siril.org). 
+M1 is the remains of a supernova explosion that happened in 1054. There are records from Chinese astronomers of a 'guest star' which appeared in the sky. The bubble of gas has been expanding ever since.
+
+![M1-2025-12-24.jpg](images/photos/M1-2025-12-24.jpg)
+
 ### Supernova SN2025rbs in NGC7331
 
 October 2025. 36x1min exposures stacked in Siril. Photmetry using astropy photutils. Mag 15.55 2025-10-23-20-56-35. 

@@ -3,7 +3,7 @@ layout: post
 title:  "My ideas on Generative AI use in Astronomy"
 author: "Derek"
 excerpt: An optimistic view of the future of both amateur and professional astronomy in the age of generative AI.
-published: true
+published: false
 images:
   - url: /images/standing-lookingup.png
 ---

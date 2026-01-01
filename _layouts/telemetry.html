@@ -444,6 +444,16 @@
         color: #b71c1c;
       }
 
+      .state-aborted {
+        background-color: #ffcdd2;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        color: #b71c1c;
+      }
+
       /* Log Panel Styles */
       .log-panel {
         background: #ffffff;
@@ -816,12 +826,12 @@
 
       function getStateClass(state) {
         // Map state numbers to classes
-        // 0: IDLE, 1: RUNNING, 2: SCHEDULED, 7: COMPLETED, other: ERROR
+        // FIXME: 5 might be state-aborted, not sure
         switch(state) {
           case 0: return 'state-idle';
           case 2: return 'state-scheduled';
           case 3: return 'state-running';
-          case 5: return 'state-running';
+          case 5: return 'state-aborted';
           case 7: return 'state-completed';
           default: return 'state-error';
         }
@@ -832,7 +842,7 @@
           case 0: return 'Idle';
           case 2: return 'Scheduled';
           case 3: return 'Running';
-          case 5: return 'Running';
+          case 5: return 'Aborted';
           case 7: return 'Completed';
           default: return 'Error';
         }

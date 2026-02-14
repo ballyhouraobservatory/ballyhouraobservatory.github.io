@@ -39,7 +39,7 @@ There may be an expectation that the new generative AI is an 'oracle', extractin
 This is AI to change the process vs. AI to change the data.
 
 
-#### Vibe coding a solution (the process)
+### Vibe coding a solution (the process)
 
 Modern coding assistants (end 2025) are now so capable, they are enabling non software engineers to write code to accomplish almost any task. Here, I'll go through using [Claude Code](https://claude.com/product/claude-code) to generate an application to analyse images and extract exoplanet transit data. 
 
@@ -68,7 +68,7 @@ Final result: TrES3b, an exoplanet transit plot output from the AI-generated cod
 **NOTE**: About 50 prompts were used in total. Some were experiments, some were errors that I asked to fix. See the appendix below for the entire *conversation*.
 
 
-#### Final thoughts, insights and surprises
+### Final thoughts, insights and surprises
 
 As an amateur astronomer I'm optimistic about the use of Generative AI in astronomy. 
 I believe it will accelerate our understanding of the universe by building tools rather than *'understanding'* the data.

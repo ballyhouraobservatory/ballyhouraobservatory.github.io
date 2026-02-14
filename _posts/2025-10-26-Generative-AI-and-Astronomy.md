@@ -3,7 +3,7 @@ layout: post
 title:  "My ideas on Generative AI use in Astronomy"
 author: "Derek"
 excerpt: An optimistic view of the future of both amateur and professional astronomy in the age of generative AI.
-published: false
+published: true
 images:
   - url: /images/standing-lookingup.png
 ---
@@ -19,47 +19,54 @@ I don't have academic qualifications in astronomy but have completed [AAVSO cour
 ### The problem
 
 When it comes to AI use in astronomy research, "It can't do it yet" is a common quote I've heard. 
-In my opinion, they are correct, and it may never be able to 'do it'. There is a nuance to this though, and I believe this is the problem.
-There may be an expectation that AI is an 'oracle', extracting insights from raw data, whereas I argue that it is more suitable as a 'research assistant' and 'coding partner'.
+In my opinion, they are correct, and it may never be able to 'do it'. 
 
-Astronomers are right to be cautious about AI usage thought. 
-Reinhard Genzel, a Nobel laureate and an astrophysicist expressed skepticism[^2] when a group of researchers published an AI generated image of the Sag-a black hole based on data discarded form the event horizon telescope. 
+Ever since late 2022 when ChatGPT was released there has been huge hype around AI. 
+I feel there is some reluctance to use AI in Astronomy. This is just my opinion and stems from what we commonly call AI in 2025 which is really a specific type of generative AI built on human language (Large language models). There is a big difference between this new wave of generative AI and the previous generations of AI (ML) which was used to classify data into categories. For example, classifying large datasets of light curves into variable stars or exoplanet transits. 
 
-TODO: section on ai gen astrophotos. include apod and cac poll
+Astronomers are right to be cautious about generative AI usage though. 
+Reinhard Genzel, a Nobel laureate and an astrophysicist expressed skepticism[^2] when a group of researchers published an AI generated image of the SAG-A black hole based on data discarded form the event horizon telescope.
+Here, a generative AI model was specially trained on good data. It was then given the very noisy, discarded EHT data and it **generated** an image of a black hole.
+
+A recent poll from my local astronomy club shows the opinions of amateur astronomers relating to AI usage in astrophotography.
 ![whatsapp-ai-poll.png](../images/whatsapp-ai-poll.png)
 
+### What if...
 
+What if AI doesn't touch the data or *generate* anything directly from the data? What if it just generates the software to examine or process the data.
+There may be an expectation that the new generative AI is an 'oracle', extracting insights from raw data, whereas I argue that it is more suitable as a 'research assistant' and 'coding partner'.
 
-### The central idea. What if...
+This is AI to change the process vs. AI to change the data.
 
-"What if AI doesn't touch the data at all—it just writes the code that does?" ---- AI to change the process vs. AI to change the data
-
-
-so above is all generative AI. The example of nobel laurate and the black hole stuff, APOD example of gen images, the whatsapp group poll, the quote from astronomer "cant do it yet."
-Now, what if AI does not touch the data at all. It does not generate direct insights from data. What if we take a different angle and use AI to generate code that does.
-Here's what everyone is missing. Generative AI is really great for generating code, It can accelerate the entire process. <Marks quote> changes the process not the data.
-
-insert something here to further clarify ai changing the process not the data. Maybe an image
 
 #### Vibe coding a solution (the process)
 
-What is Claude Code? 
+Modern coding assistants (end 2025) are now so capable, they are enabling non software engineers to write code to accomplish almost any task. Here, I'll go through using [Claude Code](https://claude.com/product/claude-code) to generate an application to analyse images and extract exoplanet transit data. 
 
+What is Claude Code? Claude code[^3] is a command line tool that you interact with using natural language. It can generate code, stored as files on your machine. It can also run, test and iterate on the codebase until the expected behavior is achieved. Its so good, it was recently used by NASA to for the first AI-planned drive on another planet[^5].
 ![claude-code.png](../images/claude-code.png)
 
-Include some actual prompts. 
+Here are some actual prompts that I used.
+```
+I'm creating a new app to do timeseries photometry on a set of fits files. Astropy has good libraries to use for photometry but I'm open to using another language. Please generate a project using the sample images in this directory.
+```
+After this prompt, I had a basic working application. Next I made some improvements.
+```
+This looks great. I have changes to make. All my fits files have wcs headers so I would like to specify the target coords and ref coords using RA and DEC coordinates of the stars. Astropy can convert RA and DEC to X Y coords
+```
+Now I wanted it to auto select the best comparison stars for photometry. This prompt resulted in an almost finished application.
+```
+Next, for the differential feature, I would like it to automatically select comparison stars instead of having to specify them. To do this it would need to find stars with similar brightness to the target star and also not near the edge of frame as this may suffer from some intrinisc noise. Next I would like it to select the best comparison stars by finding the stars which vary less over all the time series data. Possibly the ones with lowest standard deviation over the timeframe of all images. If possible I would also like the processing to be in parallel
+```
 
-Include final image of TrES3b
+Final result: TrES3b, an exoplanet transit plot output from the AI-generated code described in this post. Raw data taken by this observatory.
 <figure>
   <img src="../images/exop-example-TrES-3b.png" alt="Example plot from the AI generated codebase">
   <figcaption>Actual exoplanet transit plot output from the AI-generated code described in this post. Raw data taken by this observatory.</figcaption>
 </figure>
 
-**NOTE**: the full 
+**NOTE**: About 50 prompts were used in total. Some were experiments, some were errors that I asked to fix. See the appendix below for the entire *conversation*.
 
-#### Trashcan
-Ever since late 2022 when ChatGPT was released there has been a huge boom and hype around AI I feel there is some reluctance to use AI in Astronomy.
-This is just my opinion and stems from what we commonly call AI in 2025 which is really a specific type of AI built on human language (Large language models).
 
 #### Final thoughts, insights and surprises
 
@@ -77,7 +84,7 @@ I published the [AI generated codebase on github](https://github.com/dokeeffe/ex
 
 ## Appendix
 <details>
-<summary>On the use of AI in this post. <strong>Click to expand</strong></summary>
+<summary>Full prompts and about the use of AI in this post. <strong>Click to expand</strong></summary>
 
 <p>
       <strong>Disclosure:</strong> I believe in transparency about tool usage. Claude AI (Sonnet 4.5) was used to structure this blog post prior to writing but the writing is my own and not modified afterwards.
@@ -144,5 +151,4 @@ I published the [AI generated codebase on github](https://github.com/dokeeffe/ex
 [^2]: [Nobel laureate raises questions about AI-generated image of black hole](https://www.livescience.com/space/black-holes/artificial-intelligence-is-not-a-miracle-cure-nobel-laureate-raises-questions-about-ai-generated-image-of-black-hole-spinning-at-the-heart-of-our-galaxy)
 [^3]: [Claude code: Generative AI coding assistant from Anthropic](https://claudecode.io)
 [^4]: [Broeg, C. & Fernández, M. & Neuhäuser, R.. (2005). A new algorithm for differential photometry: Computing an optimum artificial comparison star](https://www.researchgate.net/publication/227518597_A_new_algorithm_for_differential_photometry_Computing_an_optimum_artificial_comparison_star)
-[^5]: [Anthropic Claude generative AI](https://claude.com/product/overview)
-[^6]: [Active Learning for Supernova Photometric Classification. Ishida et al, 2019, MNRAS, 483 (1), 2–18](https://cosmostatistics-initiative.org/projects/active-learning-for-supernova-photometric-classification/)
+[^5]: [Claude on Mars: ](https://www.anthropic.com/features/claude-on-mars)

@@ -140,6 +140,48 @@ Click <a href="/images/photos/M33.jpg" target="_blank">here</a> for a high res v
 
 ---
 
+### M87 and jet
+
+April 2019. M87 is a large eliptical galaxy with a black hole at its core. This image also shows the jet of material ejected from the black hole's axis of rotation. 
+
+
+![](/images/photos/m87-jet.png)
+
+---
+
+### Needle galaxy
+
+NGC 4565 or Caldwell 38, is an edge-on spiral galaxy located approximately 30 to 50 million light-years away in the constellation Coma Berenices. C11 scope LUM filter
+
+![](/images/photos/Needle.png)
+
+---
+
+### NGC 891 galaxy
+
+NGC 891 (also known as Caldwell 23, the Silver Sliver Galaxy, and the Outer Limits Galaxy) is an edge-on unbarred spiral galaxy about 30 million light-years away in the constellation Andromeda
+
+![](/images/photos/NGC_891_LRGB.jpg)
+
+---
+### The Pelican nebula in HA
+
+The pelican nebula is a region of ionized hydrogen in our galazxy. 
+20 x 5min exposures using a 7nm HA filter. C11 scope + ATIK383L camera.
+
+![](/images/photos/PelicanNebulaAug9-2018-20x300HA.jpg)
+
+---
+
+### The Rosette nebula in HA
+
+The Rosette nebula is a region of ionized hudrogen in our galaxy.
+Image taken using a 7nm HA filter, C11 scope + ATIK383L camera.
+
+![](/images/photos/rosette.jpg)
+
+---
+
 ### M27 in colour
 
 Taken July 2019. 90min total exposure time through Baader LRGB filters. 

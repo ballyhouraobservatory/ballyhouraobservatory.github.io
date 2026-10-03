@@ -802,7 +802,7 @@
                });
       }
       function update_pc_state() {
-        $.getJSON('https://52-8.xyz/images/telemetry/pc_state.json?'+new Date().getTime(), function(pc) {
+        $.getJSON('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/pc_state.json?'+new Date().getTime(), function(pc) {
                   if (pc.online) {
                     const uptimeHours = (pc.uptime_seconds / 3600).toFixed(1);
                     const load1min = pc.load_average['1min'].toFixed(2);

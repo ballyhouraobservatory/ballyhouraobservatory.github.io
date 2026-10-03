@@ -816,7 +816,7 @@
                });
       }
       function update_indi_props() {
-        $.getJSON('https://52-8.xyz/images/telemetry/indi_properties.json?'+new Date().getTime(), function(indi) {
+        $.getJSON('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/indi_properties.json?'+new Date().getTime(), function(indi) {
                   $("#mount").html(indi["iOptron CEM120"].CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
                   $("#ccdcamera").html(indi["Atik 383L"].CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
                   $("#radec").html(indi["iOptron CEM120"].TELESCOPE_PARK.UNPARK ? "TRACKING" : "PARKED");

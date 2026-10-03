@@ -820,7 +820,9 @@
                   $("#mount").html(indi["iOptron CEM120"].CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
                   $("#ccdcamera").html(indi["Atik 383L"].CONNECTION.CONNECT ? "CONNECTED" : "OFFLINE");
                   $("#radec").html(indi["iOptron CEM120"].TELESCOPE_PARK.UNPARK ? "TRACKING" : "PARKED");
-                  $("#sqm").html(parseFloat(indi.SQM.SKY_QUALITY.SKY_BRIGHTNESS).toFixed(1));
+                  const skyBrightness = indi.SQM?.SKY_QUALITY?.SKY_BRIGHTNESS;
+                  const numericSkyBrightness = Number(skyBrightness);
+                  $("#sqm").text(skyBrightness != null && skyBrightness !== "" && Number.isFinite(numericSkyBrightness) ? numericSkyBrightness.toFixed(1) : "--");
                });
       }
 

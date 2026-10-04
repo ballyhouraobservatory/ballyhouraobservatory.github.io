@@ -1,4 +1,4 @@
-fetch('https://52-8.xyz/images/telemetry/weather-history.json')
+fetch('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/weather-history.json')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok: ' + response.status);

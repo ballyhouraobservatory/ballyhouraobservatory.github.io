@@ -117,6 +117,11 @@
         animation: pulse 2s infinite;
       }
 
+      .status-indicator.offline {
+        background-color: #f44336;
+        animation: none;
+      }
+
       @keyframes pulse {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.6; }
@@ -580,7 +585,7 @@
           <!-- Weather Card -->
           <div class="status-card weather-card">
             <div class="card-header">
-              <h3>Weather</h3>
+              <h3 id="weather-title">Weather</h3>
               <div class="status-indicator" id="weather-status"></div>
             </div>
             <div class="card-content">
@@ -791,9 +796,22 @@
     <script>
       function update_telemetry() {
         $.getJSON('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/current-weather.json?'+new Date().getTime(), function(telemetry) {
-                  $( "#skytemp" ).html( telemetry.skyTemp )
-                  $( "#ambienttemp" ).html( telemetry.outsideTemp  )
-                  $( "#rain" ).html( telemetry.rain ? 'Raining' : 'Not Raining')
+                  const timestampValue = typeof telemetry.readingTimestamp === "string"
+                    ? telemetry.readingTimestamp.trim().replace(" ", "T")
+                    : "";
+                  const timestamp = Date.parse(/[zZ]|[+-]\d{2}:?\d{2}$/.test(timestampValue)
+                    ? timestampValue
+                    : timestampValue + "Z");
+                  const isFresh = Number.isFinite(timestamp) && Date.now() - timestamp <= 10 * 60 * 1000;
+                  $("#weather-title").text(isFresh ? "Weather" : "Weather (OFFLINE)");
+                  $("#weather-status").toggleClass("offline", !isFresh);
+                  if (isFresh) {
+                    $("#skytemp").text(telemetry.skyTemp);
+                    $("#ambienttemp").text(telemetry.outsideTemp);
+                    $("#rain").text(telemetry.rain ? "Raining" : "Not Raining");
+                  } else {
+                    $("#skytemp, #ambienttemp, #rain").text("--");
+                  }
                });
       }
       function update_roof() {
@@ -803,7 +821,9 @@
       }
       function update_pc_state() {
         $.getJSON('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/pc_state.json?'+new Date().getTime(), function(pc) {
-                  if (pc.online) {
+                  const timestamp = Date.parse(pc.timestamp);
+                  const isFresh = Number.isFinite(timestamp) && Date.now() - timestamp <= 6 * 60 * 1000;
+                  if (pc.online && isFresh) {
                     const uptimeHours = (pc.uptime_seconds / 3600).toFixed(1);
                     const load1min = pc.load_average['1min'].toFixed(2);
                     const load5min = pc.load_average['5min'].toFixed(2);

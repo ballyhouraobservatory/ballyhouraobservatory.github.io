@@ -54,9 +54,7 @@ After removing them, logging out and in, the desktop launcher worked.
 
 ## Moving the observatory setup across
 
-I mounted the old PC's SSD drive and copied across the settings and data that were still useful, including `~/.indi`, the KStars astrometry directory and my `.profile`. Some settings had to be entered again by hand.
-
-**Settings re-entered manually:** [Add the INDI/EKOS settings you had to recreate.]
+I mounted the old PC's SSD drive and copied across the settings and data that were still useful, including `~/.indi`, the KStars astrometry directory and my `.profile`. Some settings in EKOS had to be entered again by hand.
 
 For serial devices, I used `/dev/serial/by-id/` so the device paths would be easier to identify than a changing `/dev/ttyUSB*` number. 
 

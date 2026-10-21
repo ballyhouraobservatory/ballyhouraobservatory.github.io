@@ -64,7 +64,7 @@ Once the astronomy software was in place, I cloned my [bh-observatory](https://g
 
 ## The small pieces that make an observing night work
 
-The PC does more than run KStars. It also hosts the observatory-specific scripts and monitoring that help the system respond to changing conditions:
+As well as running Kstars & EKOS, the PC also hosts the observatory-specific scripts and monitoring that help the system respond to changing conditions:
 
 - A weather proxy (`weather_status.py`) and a safety check for bad weather during a slew.
 - Scripts for the roof and Dome Scripting Gateway.
@@ -78,7 +78,7 @@ Having these pieces back on one computer is what turns a working Ubuntu installa
 
 ## A short rebuild checklist
 
-For a similar rebuild, this is the order I would follow:
+For a similar rebuild, this is the order I would follow in future:
 
 1. Update Ubuntu and set up SSH and remote access.
 2. Check the storage, temperatures and fan behaviour if the PC is refurbished.

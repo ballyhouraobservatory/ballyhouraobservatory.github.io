@@ -613,7 +613,7 @@
           <!-- Observatory Card -->
           <div class="status-card observatory-card">
             <div class="card-header">
-              <h3>Observatory</h3>
+              <h3 id="observatory-title">Observatory</h3>
               <div class="status-indicator" id="roof-status"></div>
             </div>
             <div class="card-content">
@@ -816,6 +816,15 @@
       }
       function update_roof() {
         $.getJSON('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/roof.json?'+new Date().getTime(), function(roof) {
+                  const timestampValue = typeof roof.timestamp === "string"
+                    ? roof.timestamp.trim().replace(" ", "T")
+                    : "";
+                  const timestamp = Date.parse(/[zZ]|[+-]\d{2}:?\d{2}$/.test(timestampValue)
+                    ? timestampValue
+                    : timestampValue + "Z");
+                  const isFresh = Number.isFinite(timestamp) && Date.now() - timestamp <= 20 * 60 * 1000;
+                  $("#observatory-title").text(isFresh ? "Observatory" : "Observatory (OFFLINE)");
+                  $("#roof-status").toggleClass("offline", !isFresh);
                   $("#roof").html(roof.state + ' since ' + roof.last_changed);
                });
       }

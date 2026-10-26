@@ -607,6 +607,10 @@
                 <span class="label">Darkness (SQM)</span>
                 <span class="value" id="sqm">--</span>
               </div>
+              <div class="status-item">
+                <span class="label">Updated</span>
+                <span class="value" id="weather-age">--</span>
+              </div>
             </div>
           </div>
 
@@ -794,6 +798,31 @@
     </div>
     {% include analytics.html %}
     <script>
+      let weatherTimestamp = NaN;
+
+      function update_weather_age() {
+        if (!Number.isFinite(weatherTimestamp)) {
+          $("#weather-age").text("--");
+          return;
+        }
+
+        const ageSeconds = Math.max(0, Math.floor((Date.now() - weatherTimestamp) / 1000));
+        let age;
+        if (ageSeconds < 60) {
+          age = ageSeconds + " second" + (ageSeconds === 1 ? "" : "s");
+        } else if (ageSeconds < 3600) {
+          const minutes = Math.floor(ageSeconds / 60);
+          age = minutes + " minute" + (minutes === 1 ? "" : "s");
+        } else if (ageSeconds < 86400) {
+          const hours = Math.floor(ageSeconds / 3600);
+          age = hours + " hour" + (hours === 1 ? "" : "s");
+        } else {
+          const days = Math.floor(ageSeconds / 86400);
+          age = days + " day" + (days === 1 ? "" : "s");
+        }
+        $("#weather-age").text(age + " ago");
+      }
+
       function update_telemetry() {
         $.getJSON('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/current-weather.json?'+new Date().getTime(), function(telemetry) {
                   const timestampValue = typeof telemetry.readingTimestamp === "string"
@@ -802,6 +831,8 @@
                   const timestamp = Date.parse(/[zZ]|[+-]\d{2}:?\d{2}$/.test(timestampValue)
                     ? timestampValue
                     : timestampValue + "Z");
+                  weatherTimestamp = timestamp;
+                  update_weather_age();
                   const isFresh = Number.isFinite(timestamp) && Date.now() - timestamp <= 10 * 60 * 1000;
                   $("#weather-title").text(isFresh ? "Weather" : "Weather (OFFLINE)");
                   $("#weather-status").toggleClass("offline", !isFresh);
@@ -942,6 +973,8 @@
 
       $( document ).ready(function() {
         update_last_updated();
+        update_weather_age();
+        setInterval(update_weather_age, 1000);
         update_scheduler_log();
         poll_for_updates()
       });

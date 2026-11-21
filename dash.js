@@ -154,8 +154,6 @@ function getWeatherIconHTML(outsideTemp, skyTemp, rain, hour) {
 }
 
 function generateChart(weatherData) {
-
-  // Format data for the chart
   const formattedData = weatherData.map(item => {
     const date = new Date(item.readingTimestamp);
     return {
@@ -167,7 +165,6 @@ function generateChart(weatherData) {
     };
   });
 
-  // Calculate temperature range
   const minTemp = Math.min(
     Math.floor(Math.min(...formattedData.map(d => d.outsideTemp))),
     Math.floor(Math.min(...formattedData.map(d => d.skyTemp)))
@@ -178,166 +175,161 @@ function generateChart(weatherData) {
     Math.ceil(Math.max(...formattedData.map(d => d.skyTemp)))
   );
 
-  // Set up the SVG dimensions
-  const margin = {top: 20, right: 50, bottom: 30, left: 40};
-  const width = document.getElementById('chart').clientWidth - margin.left - margin.right;
-  const height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
-
-  // Create SVG element
-  const svg = d3.select('#chart')
-    .append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
-
-  // Create scales
-  const x = d3.scaleTime()
-    .domain(d3.extent(formattedData, d => d.date))
-    .range([0, width]);
-
-  const y = d3.scaleLinear()
-    .domain([minTemp - 1, maxTemp + 1])
-    .range([height, 0]);
-
-  // Add the X grid lines
-  svg.append('g')
-    .attr('class', 'grid')
-    .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x)
-      .ticks(5)
-      .tickSize(-height)
-      .tickFormat('')
-    );
-
-  // Add the Y grid lines
-  svg.append('g')
-    .attr('class', 'grid')
-    .call(d3.axisLeft(y)
-      .ticks(5)
-      .tickSize(-width)
-      .tickFormat('')
-    );
-
-  // Add X axis
-  svg.append('g')
-    .attr('class', 'axis')
-    .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat('%H:%M')));
-
-  // Add Y axis
-  svg.append('g')
-    .attr('class', 'axis')
-    .call(d3.axisLeft(y).ticks(6));
-
-  // Create tooltip
+  const chartContainer = document.getElementById('chart');
   const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip')
     .style('opacity', 0);
 
-  // Add rain bars
-  const barWidth = width / formattedData.length * 0.8; // 80% of available space per data point
-  
-  svg.selectAll('.rain-bar')
-    .data(formattedData)
-    .enter()
-    .append('rect')
-    .attr('class', 'rain-bar')
-    .attr('x', d => x(d.date) - barWidth/2)
-    .attr('width', barWidth)
-    .attr('y', d => d.rain ? 0 : height) // If rain is true, start from top, otherwise position at bottom (invisible)
-    .attr('height', d => d.rain ? height * 0.15 : 0) // 15% of chart height for rain bars
-    .attr('opacity', d => d.rain ? 0.7 : 0);
+  function drawChart() {
+    const margin = {top: 48, right: 20, bottom: 24, left: 48};
+    const width = chartContainer.clientWidth - margin.left - margin.right;
+    const height = chartContainer.clientHeight - margin.top - margin.bottom;
+    if (width <= 0 || height <= 0) return;
 
-  // Create line generator
-  const line = d3.line()
-    .x(d => x(d.date))
-    .y(d => y(d.outsideTemp))
-    .curve(d3.curveMonotoneX);
+    d3.select(chartContainer).selectAll('*').remove();
 
-  // Create line generator for sky temperature
-  const skyLine = d3.line()
-    .x(d => x(d.date))
-    .y(d => y(d.skyTemp))
-    .curve(d3.curveMonotoneX);
+    const svg = d3.select(chartContainer)
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Add the Ambient Temperature line
-  svg.append('path')
-    .datum(formattedData)
-    .attr('class', 'line outside-temp')
-    .attr('d', line);
+    const [start, end] = d3.extent(formattedData, d => d.date);
+    const x = d3.scaleTime()
+      .domain([start, end])
+      .range([0, width]);
 
-  // Add the sky temperature line
-  svg.append('path')
-    .datum(formattedData)
-    .attr('class', 'line sky-temp')
-    .attr('d', skyLine);
+    let yMin = Math.min(0, Math.floor(minTemp / 2) * 2);
+    let yMax = Math.max(0, Math.ceil(maxTemp / 2) * 2);
+    if (yMin === yMax) {
+      yMin -= 2;
+      yMax += 2;
+    }
 
-  // Add invisible overlay for tooltip
-  svg.append('rect')
-    .attr('width', width)
-    .attr('height', height)
-    .style('fill', 'none')
-    .style('pointer-events', 'all')
-    .on('mousemove', function(event) {
-      const [mouseX] = d3.pointer(event);
-      const x0 = x.invert(mouseX);
-      
-      // Find the closest data point
-      const bisect = d3.bisector(d => d.date).left;
-      const i = bisect(formattedData, x0, 1);
-      const d0 = formattedData[i - 1];
-      const d1 = formattedData[i];
-      const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-      
-      // Show tooltip
-      tooltip.transition()
-        .duration(200)
-        .style('opacity', 0.9);
-      
-      tooltip.html(`
-        <strong>Time: ${d.time}</strong><br/>
-        Ambient Temp: ${d.outsideTemp.toFixed(1)}°C<br/>
-        Sky Temp: ${d.skyTemp.toFixed(1)}°C<br/>
-        Cloud cover: ${d.cloudCover.cloudCoverPercent}%<br/>
-        ${d.rain ? '<strong style="color: #4299e1;">Rain</strong>' : 'No Rain'}
-      `)
-        .style('left', (event.pageX + 10) + 'px')
-        .style('top', (event.pageY - 28) + 'px');
-    })
-    .on('mouseout', function() {
-      tooltip.transition()
-        .duration(500)
-        .style('opacity', 0);
-    });
+    const y = d3.scaleLinear()
+      .domain([yMin, yMax])
+      .range([height, 0]);
+    const yTicks = d3.range(yMin, yMax + 1, 2);
+    const hourTicks = d3.timeHour.range(d3.timeHour.ceil(start), d3.timeHour.ceil(end));
+    const labelEveryHours = width < 500 ? 4 : 2;
+    const hourLabels = hourTicks.filter(date => date.getHours() % labelEveryHours === 0);
 
-  // Add weather icons
-//   formattedData.forEach((d, i) => {
-//     if (i % 6 === 0) { // Display every 6 hours
-//       let icon;
-      
-//       if (d.weather === 0) {
-//         // Sunny
-//         icon = d.isDay ? "☀️" : "🌙";
-//       } else if (d.weather === 1) {
-//         // Partly cloudy
-//         icon = d.isDay ? "🌤️" : "☁️";
-//       } else if (d.weather === 2) {
-//         // Cloudy
-//         icon = "☁️";
-//       } else {
-//         // Rainy
-//         icon = "🌧️";
-//       }
-      
-//       svg.append("text")
-//         .attr("class", "weather-icon")
-//         .attr("x", x(i))
-//         .attr("y", yTemp(d.temp) - 15)
-//         .attr("text-anchor", "middle")
-//         .text(icon);
-//     }
-//   });
+    svg.append('g')
+      .attr('class', 'grid hour-grid')
+      .call(d3.axisTop(x)
+        .tickValues(hourTicks)
+        .tickSize(-height)
+        .tickFormat('')
+      );
+
+    const yGrid = svg.append('g')
+      .attr('class', 'grid y-grid')
+      .call(d3.axisLeft(y)
+        .tickValues(yTicks)
+        .tickSize(-width)
+        .tickFormat('')
+      );
+    yGrid.selectAll('.tick').filter(value => value === 0).classed('zero-grid', true);
+
+    svg.append('g')
+      .attr('class', 'axis time-axis')
+      .call(d3.axisTop(x)
+        .tickValues(hourLabels)
+        .tickSize(0)
+        .tickFormat(d3.timeFormat('%H'))
+      );
+
+    svg.append('g')
+      .attr('class', 'axis temperature-axis')
+      .call(d3.axisLeft(y)
+        .tickValues(yTicks)
+        .tickFormat(value => `${value}°`)
+      );
+
+    const midnightTicks = d3.timeDay.range(
+      d3.timeDay.ceil(start),
+      d3.timeDay.offset(d3.timeDay.floor(end), 1)
+    );
+    svg.selectAll('.day-label')
+      .data(midnightTicks)
+      .enter()
+      .append('text')
+      .attr('class', 'day-label')
+      .attr('x', date => x(date) + (x(date) < 72 ? 4 : 0))
+      .attr('y', -28)
+      .attr('text-anchor', date => {
+        const position = x(date);
+        return position < 72 ? 'start' : position > width - 72 ? 'end' : 'middle';
+      })
+      .text(d3.timeFormat('%a. %d %b'));
+
+    const barWidth = width / formattedData.length * 0.8;
+    svg.selectAll('.rain-bar')
+      .data(formattedData.filter(d => d.rain))
+      .enter()
+      .append('rect')
+      .attr('class', 'rain-bar')
+      .attr('x', d => x(d.date) - barWidth / 2)
+      .attr('y', y(0) - 8)
+      .attr('width', barWidth)
+      .attr('height', 8);
+
+    const line = d3.line()
+      .x(d => x(d.date))
+      .y(d => y(d.outsideTemp))
+      .curve(d3.curveMonotoneX);
+    const skyLine = d3.line()
+      .x(d => x(d.date))
+      .y(d => y(d.skyTemp))
+      .curve(d3.curveMonotoneX);
+
+    svg.append('path')
+      .datum(formattedData)
+      .attr('class', 'line outside-temp')
+      .attr('d', line);
+
+    svg.append('path')
+      .datum(formattedData)
+      .attr('class', 'line sky-temp')
+      .attr('d', skyLine);
+
+    svg.append('rect')
+      .attr('width', width)
+      .attr('height', height)
+      .style('fill', 'none')
+      .style('pointer-events', 'all')
+      .on('mousemove', function(event) {
+        const [mouseX] = d3.pointer(event);
+        const x0 = x.invert(mouseX);
+        const bisect = d3.bisector(d => d.date).left;
+        const i = bisect(formattedData, x0, 1);
+        const d0 = formattedData[i - 1];
+        const d1 = formattedData[i];
+        const d = !d1 || x0 - d0.date <= d1.date - x0 ? d0 : d1;
+
+        tooltip.transition()
+          .duration(200)
+          .style('opacity', 0.9);
+        tooltip.html(`
+          <strong>Time: ${d.time}</strong><br/>
+          Ambient Temp: ${d.outsideTemp.toFixed(1)}°C<br/>
+          Sky Temp: ${d.skyTemp.toFixed(1)}°C<br/>
+          Cloud cover: ${d.cloudCover.cloudCoverPercent}%<br/>
+          ${d.rain ? '<strong style="color: #4299e1;">Rain</strong>' : 'No Rain'}
+        `)
+          .style('left', (event.pageX + 10) + 'px')
+          .style('top', (event.pageY - 28) + 'px');
+      })
+      .on('mouseout', function() {
+        tooltip.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
+  }
+
+  drawChart();
+  window.addEventListener('resize', drawChart);
 
   // Create forecast items
   const forecastHours = [4, 10, 18, 22];
@@ -365,121 +357,3 @@ function generateChart(weatherData) {
     <div>Max: ${maxTemp}°C</div>
   `;
 }
-
-// Handle window resize
-window.addEventListener('resize', function() {
-  const chartContainer = document.getElementById('chart');
-  chartContainer.innerHTML = '';
-  
-  const width = chartContainer.clientWidth - margin.left - margin.right;
-  const height = chartContainer.clientHeight - margin.top - margin.bottom;
-
-  const svg = d3.select('#chart')
-    .append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
-
-  const x = d3.scaleTime()
-    .domain(d3.extent(formattedData, d => d.date))
-    .range([0, width]);
-
-  const y = d3.scaleLinear()
-    .domain([minTemp - 1, maxTemp + 1])
-    .range([height, 0]);
-
-  svg.append('g')
-    .attr('class', 'grid')
-    .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x)
-      .ticks(5)
-      .tickSize(-height)
-      .tickFormat('')
-    );
-
-  svg.append('g')
-    .attr('class', 'grid')
-    .call(d3.axisLeft(y)
-      .ticks(5)
-      .tickSize(-width)
-      .tickFormat('')
-    );
-
-  svg.append('g')
-    .attr('class', 'axis')
-    .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat('%H:%M')));
-
-  svg.append('g')
-    .attr('class', 'axis')
-    .call(d3.axisLeft(y).ticks(6));
-
-  // Add rain bars on resize
-  const barWidth = width / formattedData.length * 0.8;
-  
-  svg.selectAll('.rain-bar')
-    .data(formattedData)
-    .enter()
-    .append('rect')
-    .attr('class', 'rain-bar')
-    .attr('x', d => x(d.date) - barWidth/2)
-    .attr('width', barWidth)
-    .attr('y', d => d.rain ? 0 : height)
-    .attr('height', d => d.rain ? height * 0.15 : 0)
-    .attr('opacity', d => d.rain ? 0.7 : 0);
-
-  const line = d3.line()
-    .x(d => x(d.date))
-    .y(d => y(d.outsideTemp))
-    .curve(d3.curveMonotoneX);
-
-  const skyLine = d3.line()
-    .x(d => x(d.date))
-    .y(d => y(d.skyTemp))
-    .curve(d3.curveMonotoneX);
-
-  svg.append('path')
-    .datum(formattedData)
-    .attr('class', 'line outside-temp')
-    .attr('d', line);
-
-  svg.append('path')
-    .datum(formattedData)
-    .attr('class', 'line sky-temp')
-    .attr('d', skyLine);
-
-  svg.append('rect')
-    .attr('width', width)
-    .attr('height', height)
-    .style('fill', 'none')
-    .style('pointer-events', 'all')
-    .on('mousemove', function(event) {
-      const [mouseX] = d3.pointer(event);
-      const x0 = x.invert(mouseX);
-      
-      const bisect = d3.bisector(d => d.date).left;
-      const i = bisect(formattedData, x0, 1);
-      const d0 = formattedData[i - 1];
-      const d1 = formattedData[i];
-      const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-      
-      tooltip.transition()
-        .duration(200)
-        .style('opacity', 0.9);
-      
-      tooltip.html(`
-        <strong>Time: ${d.time}</strong><br/>
-        Ambient Temp: ${d.outsideTemp.toFixed(1)}°C<br/>
-        Sky Temp: ${d.skyTemp.toFixed(1)}°C<br/>
-        ${d.rain ? '<strong style="color: #4299e1;">Rain</strong>' : 'No Rain'}
-      `)
-        .style('left', (event.pageX + 10) + 'px')
-        .style('top', (event.pageY - 28) + 'px');
-    })
-    .on('mouseout', function() {
-      tooltip.transition()
-        .duration(500)
-        .style('opacity', 0);
-    });
-});

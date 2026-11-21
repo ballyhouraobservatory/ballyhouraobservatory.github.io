@@ -264,16 +264,17 @@ function generateChart(weatherData) {
       })
       .text(d3.timeFormat('%a. %d %b'));
 
-    const barWidth = width / formattedData.length * 0.8;
+    const barWidth = width / formattedData.length * 1.6;
+    const barHeight = 32;
     svg.selectAll('.rain-bar')
       .data(formattedData.filter(d => d.rain))
       .enter()
       .append('rect')
       .attr('class', 'rain-bar')
       .attr('x', d => x(d.date) - barWidth / 2)
-      .attr('y', y(0) - 8)
+      .attr('y', y(0) - barHeight)
       .attr('width', barWidth)
-      .attr('height', 8);
+      .attr('height', barHeight);
 
     const line = d3.line()
       .x(d => x(d.date))

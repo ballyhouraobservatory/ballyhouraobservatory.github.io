@@ -153,6 +153,102 @@ function getWeatherIconHTML(outsideTemp, skyTemp, rain, hour) {
   return '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>';
 }
 
+function isDaytime(date) {
+  const latitude = 52.2 * Math.PI / 180;
+  const longitude = -8.4;
+  const dayOfYear = d3.timeDay.count(d3.timeYear(date), date) + 1;
+  const hour = date.getHours() + date.getMinutes() / 60;
+  const yearAngle = 2 * Math.PI / 365 * (dayOfYear - 1 + (hour - 12) / 24);
+  const equationOfTime = 229.18 * (
+    0.000075 +
+    0.001868 * Math.cos(yearAngle) -
+    0.032077 * Math.sin(yearAngle) -
+    0.014615 * Math.cos(2 * yearAngle) -
+    0.040849 * Math.sin(2 * yearAngle)
+  );
+  const solarDeclination =
+    0.006918 -
+    0.399912 * Math.cos(yearAngle) +
+    0.070257 * Math.sin(yearAngle) -
+    0.006758 * Math.cos(2 * yearAngle) +
+    0.000907 * Math.sin(2 * yearAngle) -
+    0.002697 * Math.cos(3 * yearAngle) +
+    0.00148 * Math.sin(3 * yearAngle);
+  const timezone = -date.getTimezoneOffset() / 60;
+  const solarMinutes = hour * 60 + equationOfTime + 4 * longitude - 60 * timezone;
+  const hourAngle = (solarMinutes / 4 - 180) * Math.PI / 180;
+  const solarElevation = Math.asin(
+    Math.sin(latitude) * Math.sin(solarDeclination) +
+    Math.cos(latitude) * Math.cos(solarDeclination) * Math.cos(hourAngle)
+  );
+
+  return solarElevation > -0.833 * Math.PI / 180;
+}
+
+function appendWeatherIcon(selection, weather) {
+  const cloudCover = weather.cloudCover.cloudCoverPercent;
+  let type;
+  if (weather.rain) {
+    type = 'rain';
+  } else if (cloudCover === 0) {
+    type = isDaytime(weather.date) ? 'clear-day' : 'clear-night';
+  } else if (cloudCover >= 60) {
+    type = 'cloud';
+  } else {
+    type = 'partly-cloudy';
+  }
+
+  selection.append('title').text(
+    type === 'rain' ? 'Cloud and rain' :
+    type === 'cloud' ? 'Cloudy' :
+    type === 'partly-cloudy' ? 'Partly cloudy' :
+    type === 'clear-day' ? 'Clear' : 'Clear night'
+  );
+
+  const showSun = type === 'clear-day' || (type === 'partly-cloudy' && isDaytime(weather.date));
+  const showMoon = type === 'clear-night' || (type === 'partly-cloudy' && !isDaytime(weather.date));
+
+  if (showSun) {
+    const sun = selection.append('g')
+      .attr('fill', 'none')
+      .attr('stroke', '#e9a72e')
+      .attr('stroke-width', 1.6)
+      .attr('stroke-linecap', 'round');
+    sun.append('circle')
+      .attr('cx', 9)
+      .attr('cy', 10)
+      .attr('r', 4)
+      .attr('fill', '#ffd166')
+      .attr('stroke', '#e9a72e');
+    sun.append('path')
+      .attr('d', 'M9 2v2 M9 16v2 M1 10h2 M15 10h2 M3.3 4.3l1.4 1.4 M13.3 14.3l1.4 1.4 M14.7 4.3l-1.4 1.4 M4.7 14.3l-1.4 1.4');
+  }
+
+  if (showMoon) {
+    selection.append('path')
+      .attr('d', 'M19 16.2A8 8 0 0 1 8.8 5a8.2 8.2 0 1 0 10.2 11.2Z')
+      .attr('fill', '#8c9aa5');
+  }
+
+  if (type !== 'clear-day' && type !== 'clear-night') {
+    selection.append('path')
+      .attr('d', 'M20 18.5H7a4 4 0 0 1-.5-8A7 7 0 0 1 20 11a3.75 3.75 0 0 1 0 7.5Z')
+      .attr('fill', '#d5d9dc')
+      .attr('stroke', '#879198')
+      .attr('stroke-width', 1.2)
+      .attr('stroke-linejoin', 'round');
+  }
+
+  if (type === 'rain') {
+    selection.append('path')
+      .attr('d', 'M9 21l-1 2 M15 21l-1 2 M21 21l-1 2')
+      .attr('fill', 'none')
+      .attr('stroke', '#2585d0')
+      .attr('stroke-width', 1.7)
+      .attr('stroke-linecap', 'round');
+  }
+}
+
 function generateChart(weatherData) {
   const formattedData = weatherData.map(item => {
     const date = new Date(item.readingTimestamp);
@@ -201,7 +297,7 @@ function generateChart(weatherData) {
       .range([0, width]);
 
     let yMin = Math.min(0, Math.floor(minTemp / 2) * 2);
-    let yMax = Math.max(0, Math.ceil(maxTemp / 2) * 2);
+    let yMax = Math.max(0, Math.ceil(maxTemp / 2) * 2) + 4;
     if (yMin === yMax) {
       yMin -= 2;
       yMax += 2;
@@ -211,7 +307,10 @@ function generateChart(weatherData) {
       .domain([yMin, yMax])
       .range([height, 0]);
     const yTicks = d3.range(yMin, yMax + 1, 2);
-    const hourTicks = d3.timeHour.range(d3.timeHour.ceil(start), d3.timeHour.ceil(end));
+    const hourTicks = d3.timeHour.range(
+      d3.timeHour.ceil(start),
+      d3.timeHour.offset(d3.timeHour.floor(end), 1)
+    );
     const labelEveryHours = width < 500 ? 4 : 2;
     const hourLabels = hourTicks.filter(date => date.getHours() % labelEveryHours === 0);
 
@@ -294,6 +393,24 @@ function generateChart(weatherData) {
       .datum(formattedData)
       .attr('class', 'line sky-temp')
       .attr('d', skyLine);
+
+    const twoHourTicks = hourTicks.filter(date => date.getHours() % 2 === 0);
+    const bisect = d3.bisector(d => d.date).left;
+    svg.selectAll('.weather-icon')
+      .data(twoHourTicks.map(date => {
+        const index = bisect(formattedData, date, 1);
+        const before = formattedData[index - 1];
+        const after = formattedData[index];
+        const weather = !after || date - before.date <= after.date - date ? before : after;
+        return {date, weather};
+      }))
+      .enter()
+      .append('g')
+      .attr('class', 'weather-icon')
+      .attr('transform', d => `translate(${x(d.date) - 12},${y(d.weather.outsideTemp) - 31})`)
+      .each(function(d) {
+        appendWeatherIcon(d3.select(this), d.weather);
+      });
 
     svg.append('rect')
       .attr('width', width)

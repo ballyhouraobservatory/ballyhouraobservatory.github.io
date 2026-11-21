@@ -401,7 +401,26 @@ function generateChart(weatherData) {
         const index = bisect(formattedData, date, 1);
         const before = formattedData[index - 1];
         const after = formattedData[index];
-        const weather = !after || date - before.date <= after.date - date ? before : after;
+        const nearest = !after || date - before.date <= after.date - date ? before : after;
+        const windowStart = date.getTime() - 60 * 60 * 1000;
+        const windowEnd = date.getTime() + 60 * 60 * 1000;
+        const windowReadings = formattedData.filter(
+          reading => reading.date.getTime() >= windowStart && reading.date.getTime() < windowEnd
+        );
+        const readings = windowReadings.length ? windowReadings : [nearest];
+        const averageCloudCover = d3.mean(
+          readings,
+          reading => reading.cloudCover.cloudCoverPercent
+        );
+        const weather = {
+          ...nearest,
+          date,
+          rain: readings.some(reading => reading.rain),
+          cloudCover: {
+            ...nearest.cloudCover,
+            cloudCoverPercent: averageCloudCover
+          }
+        };
         return {date, weather};
       }))
       .enter()

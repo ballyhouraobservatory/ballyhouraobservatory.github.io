@@ -190,6 +190,18 @@
         display: inline-block;
       }
 
+      .allsky-container img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        background: #000;
+      }
+
+      .image-updated.stale {
+        color: #f57f17;
+        font-weight: 600;
+      }
+
       /* Chart Styles */
       .chart-card {
         padding: 20px;
@@ -598,7 +610,7 @@
         </div>
 
         <!-- Status Cards Row -->
-        <div class="dashboard-grid-3">
+        <div class="dashboard-grid-2">
           <!-- Weather Card -->
           <div class="status-card weather-card">
             <div class="card-header">
@@ -628,6 +640,17 @@
                 <span class="label">Updated</span>
                 <span class="value" id="weather-age">--</span>
               </div>
+            </div>
+          </div>
+
+          <!-- All-Sky Camera -->
+          <div class="image-card">
+            <div class="card-header">
+              <h3>All-Sky Camera</h3>
+              <span class="image-updated" id="allsky-updated">--</span>
+            </div>
+            <div class="image-container allsky-container">
+              <img id="allsky" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg" alt="All-sky camera">
             </div>
           </div>
 
@@ -978,6 +1001,8 @@
         $("#obscam").attr("src", "https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/snapshot-obs1.jpg?"+new Date().getTime());
         $("#screenshot").attr("src", "https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/screenshot.png?"+new Date().getTime());
         $("#latestfits").attr("src", "https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/latest-fits.jpg?"+new Date().getTime());
+        $("#allsky").attr("src", "https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg?"+new Date().getTime());
+        update_allsky_age();
         update_telemetry();
         update_roof();
         update_pc_state();
@@ -986,6 +1011,19 @@
         update_scheduler_log();
         update_last_updated();
         setTimeout("poll_for_updates()", 60000);
+      }
+
+      function update_allsky_age() {
+        fetch('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg?' + Date.now(), { method: 'HEAD' })
+          .then(function(r) {
+            const lm = r.headers.get('Last-Modified');
+            if (!lm) return;
+            const mins = Math.max(0, Math.floor((Date.now() - Date.parse(lm)) / 60000));
+            $("#allsky-updated")
+              .text(mins < 1 ? "Just now" : mins + " min ago")
+              .toggleClass("stale", mins > 10);
+          })
+          .catch(function() {});
       }
 
       $( document ).ready(function() {

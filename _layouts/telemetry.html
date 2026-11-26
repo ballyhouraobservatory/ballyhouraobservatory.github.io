@@ -188,6 +188,7 @@
         height: auto;
         border-radius: 6px;
         display: inline-block;
+        cursor: zoom-in;
       }
 
       .allsky-container img {
@@ -200,6 +201,28 @@
       .image-updated.stale {
         color: #f57f17;
         font-weight: 600;
+      }
+
+      .image-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5vh 2.5vw;
+        background: rgba(0, 0, 0, 0.9);
+        cursor: zoom-out;
+      }
+
+      .image-lightbox.open {
+        display: flex;
+      }
+
+      .image-lightbox img {
+        max-width: 95vw;
+        max-height: 95vh;
+        object-fit: contain;
       }
 
       /* Chart Styles */
@@ -654,10 +677,10 @@
           <div class="image-card">
             <div class="card-header">
               <h3>Security Camera (CAM1)</h3>
-              <span class="image-updated">Live</span>
+              <span class="image-updated" id="obscam-updated">--</span>
             </div>
             <div class="image-container">
-              <img id="obscam" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/snapshot-obs1.jpg" alt="Observatory security camera">
+              <img id="obscam" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/snapshot-obs1.jpg" alt="Observatory security camera" role="button" aria-label="View full-size security camera image" tabindex="0">
             </div>
           </div>
 
@@ -668,7 +691,7 @@
               <span class="image-updated" id="allsky-updated">--</span>
             </div>
             <div class="image-container allsky-container">
-              <img id="allsky" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg" alt="All-sky camera">
+              <img id="allsky" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg" alt="All-sky camera" role="button" aria-label="View full-size all-sky camera image" tabindex="0">
             </div>
           </div>
         </div>
@@ -804,6 +827,9 @@
           {{ content }}
         </div>
       </article>
+      <div id="image-lightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-label="Expanded camera image" aria-hidden="true">
+        <img id="image-lightbox-content" alt="" tabindex="-1">
+      </div>
     </div>
 
     <div class="wrapper-footer">
@@ -973,7 +999,8 @@
         $("#screenshot").attr("src", "https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/screenshot.png?"+new Date().getTime());
         $("#latestfits").attr("src", "https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/latest-fits.jpg?"+new Date().getTime());
         $("#allsky").attr("src", "https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg?"+new Date().getTime());
-        update_allsky_age();
+        update_image_age("snapshot-obs1.jpg", "#obscam-updated");
+        update_image_age("all-sky.jpg", "#allsky-updated");
         update_telemetry();
         update_roof();
         update_pc_state();
@@ -984,23 +1011,62 @@
         setTimeout("poll_for_updates()", 60000);
       }
 
-      function update_allsky_age() {
-        fetch('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg?' + Date.now(), { method: 'HEAD' })
+      function update_image_age(imageName, updatedElement) {
+        fetch('https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/' + imageName + '?' + Date.now(), { method: 'HEAD' })
           .then(function(r) {
             const lm = r.headers.get('Last-Modified');
             if (!lm) return;
-            const mins = Math.max(0, Math.floor((Date.now() - Date.parse(lm)) / 60000));
-            $("#allsky-updated")
+            const lastModified = Date.parse(lm);
+            if (!Number.isFinite(lastModified)) return;
+            const mins = Math.max(0, Math.floor((Date.now() - lastModified) / 60000));
+            $(updatedElement)
               .text(mins < 1 ? "Just now" : mins + " min ago")
               .toggleClass("stale", mins > 10);
           })
           .catch(function() {});
       }
 
+      function close_image_lightbox() {
+        $("#image-lightbox")
+          .removeClass("open")
+          .attr("aria-hidden", "true");
+        $("#image-lightbox-content").attr("src", "");
+        $("body").css("overflow", "");
+        if (imageLightboxTrigger) {
+          imageLightboxTrigger.focus();
+          imageLightboxTrigger = null;
+        }
+      }
+
+      let imageLightboxTrigger = null;
+
       $( document ).ready(function() {
         update_last_updated();
         update_weather_age();
         setInterval(update_weather_age, 1000);
+        $("#obscam, #allsky").on("click", function() {
+          imageLightboxTrigger = this;
+          $("#image-lightbox-content").attr({
+            src: this.src,
+            alt: this.alt
+          });
+          $("#image-lightbox")
+            .addClass("open")
+            .attr("aria-hidden", "false");
+          $("body").css("overflow", "hidden");
+          $("#image-lightbox-content").trigger("focus");
+        }).on("keydown", function(event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            $(this).trigger("click");
+          }
+        });
+        $("#image-lightbox").on("click", close_image_lightbox);
+        $(document).on("keydown", function(event) {
+          if (event.key === "Escape" && $("#image-lightbox").hasClass("open")) {
+            close_image_lightbox();
+          }
+        });
         update_scheduler_log();
         poll_for_updates()
       });

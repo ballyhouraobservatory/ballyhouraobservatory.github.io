@@ -606,11 +606,18 @@
 
         <div class="dashboard-header">
           <h1>{{ page.title }}</h1>
-          <p class="last-updated">Last updated: <span id="last-update">--:--</span></p>
+          <p class="last-updated">
+            Last updated: <span id="last-update">--:--</span>
+            Roof: <span id="roof">--</span>.
+            Main Computer <span id="maincomputer">--</span>.
+            Mount <span id="mount">--</span>,
+            CCD Camera <span id="ccdcamera">--</span>,
+            Telescope <span id="radec">--</span>
+          </p>
         </div>
 
         <!-- Status Cards Row -->
-        <div class="dashboard-grid-2">
+        <div class="dashboard-grid-3">
           <!-- Weather Card -->
           <div class="status-card weather-card">
             <div class="card-header">
@@ -643,47 +650,6 @@
             </div>
           </div>
 
-          <!-- All-Sky Camera -->
-          <div class="image-card">
-            <div class="card-header">
-              <h3>All-Sky Camera</h3>
-              <span class="image-updated" id="allsky-updated">--</span>
-            </div>
-            <div class="image-container allsky-container">
-              <img id="allsky" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg" alt="All-sky camera">
-            </div>
-          </div>
-
-          <!-- Observatory Card -->
-          <div class="status-card observatory-card">
-            <div class="card-header">
-              <h3 id="observatory-title">Observatory</h3>
-              <div class="status-indicator" id="roof-status"></div>
-            </div>
-            <div class="card-content">
-              <div class="status-item">
-                <span class="label">Roof</span>
-                <span class="value" id="roof">--</span>
-              </div>
-              <div class="status-item">
-                <span class="label">Main Computer</span>
-                <span class="value" id="maincomputer">--</span>
-              </div>
-              <div class="status-item">
-                <span class="label">Mount</span>
-                <span class="value" id="mount">--</span>
-              </div>
-              <div class="status-item">
-                <span class="label">CCD Camera</span>
-                <span class="value" id="ccdcamera">--</span>
-              </div>
-              <div class="status-item">
-                <span class="label">Telescope</span>
-                <span class="value" id="radec">--</span>
-              </div>
-            </div>
-          </div>
-
           <!-- Security Camera -->
           <div class="image-card">
             <div class="card-header">
@@ -692,6 +658,17 @@
             </div>
             <div class="image-container">
               <img id="obscam" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/snapshot-obs1.jpg" alt="Observatory security camera">
+            </div>
+          </div>
+
+          <!-- All-Sky Camera -->
+          <div class="image-card">
+            <div class="card-header">
+              <h3>All-Sky Camera</h3>
+              <span class="image-updated" id="allsky-updated">--</span>
+            </div>
+            <div class="image-container allsky-container">
+              <img id="allsky" src="https://pub-6cfbb3c67a0e4e35901c0084d6cd8da4.r2.dev/all-sky.jpg" alt="All-sky camera">
             </div>
           </div>
         </div>
@@ -894,9 +871,7 @@
                     ? timestampValue
                     : timestampValue + "Z");
                   const isFresh = Number.isFinite(timestamp) && Date.now() - timestamp <= 20 * 60 * 1000;
-                  $("#observatory-title").text(isFresh ? "Observatory" : "Observatory (OFFLINE)");
-                  $("#roof-status").toggleClass("offline", !isFresh);
-                  $("#roof").html(roof.state + ' since ' + roof.last_changed);
+                  $("#roof").text(roof.state + ' since ' + roof.last_changed + (isFresh ? "" : " (OFFLINE)"));
                });
       }
       function update_pc_state() {
@@ -905,13 +880,9 @@
                   const isFresh = Number.isFinite(timestamp) && Date.now() - timestamp <= 6 * 60 * 1000;
                   if (pc.online && isFresh) {
                     const uptimeHours = (pc.uptime_seconds / 3600).toFixed(1);
-                    const load1min = pc.load_average['1min'].toFixed(2);
-                    const load5min = pc.load_average['5min'].toFixed(2);
-                    const load15min = pc.load_average['15min'].toFixed(2);
-                    const html = "ONLINE (" + uptimeHours + "h)<br/><span style='font-size: 12px; color: #999;'>Load: " + load1min + " / " + load5min + " / " + load15min + "</span>";
-                    $("#maincomputer").html(html);
+                    $("#maincomputer").text("ONLINE (" + uptimeHours + "h)");
                   } else {
-                    $("#maincomputer").html("OFFLINE");
+                    $("#maincomputer").text("OFFLINE");
                   }
                });
       }

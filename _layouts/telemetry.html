@@ -1017,8 +1017,20 @@
             const lastModified = Date.parse(lm);
             if (!Number.isFinite(lastModified)) return;
             const mins = Math.max(0, Math.floor((Date.now() - lastModified) / 60000));
+            let age;
+            if (mins < 1) {
+              age = "Just now";
+            } else if (mins < 60) {
+              age = mins + " minute" + (mins === 1 ? "" : "s") + " ago";
+            } else if (mins < 1440) {
+              const hours = Math.floor(mins / 60);
+              age = hours + " hour" + (hours === 1 ? "" : "s") + " ago";
+            } else {
+              const days = Math.floor(mins / 1440);
+              age = days + " day" + (days === 1 ? "" : "s") + " ago";
+            }
             $(updatedElement)
-              .text(mins < 1 ? "Just now" : mins + " min ago")
+              .text(age)
               .toggleClass("stale", mins > 10);
           })
           .catch(function() {});
